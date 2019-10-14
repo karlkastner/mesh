@@ -1,0 +1,73 @@
+% Fr 19. Sep 11:57:22 CEST 2014
+% Karl Kastner, Berlin
+%
+% TODO elements should be processed segment wise
+%
+% sets up a simple quadrilateral mesh in S-N coordinates
+% centreline (must be sorted in streamwise direction)
+% input variables:
+% cS : S (streamwise) coordinates of centreline
+% cL : N (spanwise) coordinate of left bank
+% cR : N (spanwise) coordinate of right bank
+% input variables controlling ouptut resolution:
+% S  : S coordinate of slices in S-direction (diff(S) is element width)
+%        must be sorted in s-direction
+% n  : n number of points per cross section
+%        (n-1) is number of elements per cross section
+% output variables:
+% mesh.{X,Y,S,N} : point coordinates
+% mesh.T         : point indices of elements (corners of the quadrilaterals)
+% -> make it orthogonal to banks by using a spline along n
+function [mesh sobj] = from_centreline(cS,cL,cR,cX,cY,S,np,type,sobj)
+	if (nargin() < 9)
+		sobj = [];
+	end
+		
+	m = length(S);
+	L = interp1(cS,cL,S,'linear');
+	R = interp1(cS,cR,S,'linear');
+	mesh = Mesh();
+	mesh.S = zeros(np*length(S),1);
+	mesh.N = zeros(np*length(R),1);
+	T = zeros((m-1)*(np-1),4);
+	switch (type)
+	case {'gauss'}
+		% gauss integration
+		[w b] = int_1d_gauss(np);
+	case {'inner'}
+		w = 1/np*ones(np,1);
+		b = (1:np)'/(np+1);
+		b = [b, 1-b];
+	case {'outer'}
+		w = 1/np*ones(np,1);
+		b = (0:np-1)'/np;
+		b = [b, 1-b];
+	otherwise
+		error('');
+	end
+
+	% grid points
+	for idx=1:m
+		%N = L(idx) + (R(idx)-L(idx))*(1:n)/(n+1);
+		%N = L(idx) + (R(idx)-L(idx))*b; %(0:n-1)/(n-1);
+		N = L(idx)*b(:,1) + R(idx).*b(:,2);
+		range = (1:np)+(idx-1)*np;
+		mesh.N(range) = N;
+		mesh.S(range) = S(idx);
+		weight(range) = w;
+	end % for idx
+	% quadrilaterals
+	for idx=1:m-1
+		for jdx=1:np-1
+			T((idx-1)*(np-1)+jdx,:) = (idx-1)*np + [jdx jdx+1 jdx+1+np jdx+np];
+		end
+	end % for idx
+	% transform target mesh into cartesian coordinates
+	[X Y] = sn2xy(cX, cY, cS, mesh.S, mesh.N, sobj);
+	mesh.point = [X Y];
+%	mesh.S     = S;
+%	mesh.N     = N;
+	mesh.elem  = T;
+	mesh.edges_from_elements();
+end % snmesh
+

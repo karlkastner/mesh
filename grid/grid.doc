@@ -1,0 +1,11 @@
+lumping (fitting) of spatio-temporal data into a regular grid
+
+supports also a 1D/2D spatial grid and function for time
+
+allows for processing of large data sets with lower memory consumption and run time
+
+intended for ADCP data processing
+
+It is recommened to use the SparseMesh rather than grid, as grid-cells
+with few samples in Grid become ill conditioned
+

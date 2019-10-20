@@ -1,4 +1,6 @@
 % Wed 21 Feb 18:04:07 CET 2018
+%% generate a mesh from a given centreline
+%% TODO : avoid crossing of inner bed points in sharp bends
 % function [obj] = generate_from_centreline(obj,X0,Y0,W0,dS,nn)
 function [obj] = generate_from_centreline(obj,X0,Y0,W0,dS,nn)
 		imethod = 'pchip';

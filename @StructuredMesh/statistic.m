@@ -1,4 +1,5 @@
 % 2018-02-25 14:25:14.309999107 +0100
+%% compute mesh statistics
 function s = statistic(obj)
 	ds = hypot(diff(obj.X),diff(obj.Y));
 	s.ds.max = max(max(ds,[],2));

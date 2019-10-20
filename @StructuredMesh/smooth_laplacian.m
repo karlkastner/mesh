@@ -1,11 +1,12 @@
 % Thu 22 Nov 12:38:53 CET 2018
 %
-% better than before, but causes dn in inner bends to be narrower than in outer bends
-% (straightens the lines)
-% better smooth p: i.e. fractional distance from left to right,
-% this is complicated at the bif
-% better: two neighbour smooth: smooth dn and ds with left/right, top bottom only 
-% 
+%% smooth the mesh coordinates
+%%
+%% better than before, but causes dn in inner bends to be narrower than in outer bends
+%% (straightens the lines)
+%% better smooth p: i.e. fractional distance from left to right,
+%% this is complicated at the bif
+%% better: two neighbour smooth: smooth dn and ds with left/right, top bottom only 
 %
 function [ds,obj] = smooth_laplacian(obj,opt)
 	if (nargin()<2)

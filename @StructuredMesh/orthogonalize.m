@@ -1,4 +1,5 @@
 % Tue 27 Nov 14:55:04 CET 2018
+%% orthogonalize mesh
 function orthogonalize(obj,opt)
 	if (nargin()<2)
 		opt = struct();

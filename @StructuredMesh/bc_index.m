@@ -1,6 +1,7 @@
 % Mi 30. Sep 10:01:51 CEST 2015
 % Karl Kastner, Berlin
-
+%% TODO this is deprecated
+%% generate indices for boundary edges
 function [BC, obj] = bc_index(obj,BC)
 	% generate cdx and edx
 	for idx=1:length(BC)

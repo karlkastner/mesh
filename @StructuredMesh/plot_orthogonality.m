@@ -1,5 +1,6 @@
 % Tue 27 Nov 16:38:22 CET 2018
 % TODO make this  plot edge_val
+%% plot mesh with edges colored by orthogonality condition
 function plot_orthogonality(obj)
 	X = obj.X;
 	Y = obj.Y;

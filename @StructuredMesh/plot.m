@@ -1,4 +1,5 @@
 % Wed 21 Feb 17:29:54 CET 2018
+%% plot the mesh
 function obj = plot(obj,val,opt)
 	if (nargin()<3)
 		opt = struct();

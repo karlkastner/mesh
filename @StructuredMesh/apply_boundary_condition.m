@@ -1,5 +1,6 @@
 % Thu 17 May 15:33:22 CEST 2018
-% TODO, what should be done at the corners?
+%% apply boundary condition and the four sides of the domain
+%% TODO: allow for interior boudaries
 function [A,b] = apply_boundary_condition(obj,A,b,bcfun,varargin)
 	n  = obj.n;
 	nn = prod(n)*[1,1];

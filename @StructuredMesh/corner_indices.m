@@ -1,4 +1,5 @@
 % Wed 23 May 19:24:32 CEST 2018
+%% indices of domain corners
 % TODO fails for adjacent nan and nan
 function [id] = corner_indices(obj)
 	n = obj.n();

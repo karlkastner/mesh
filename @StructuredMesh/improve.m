@@ -1,5 +1,6 @@
 % Do 1. Okt 12:07:23 CEST 2015
 % Karl Kastner, Berlin
+%% improve (smooth) the mesh
 function obj = improve(obj)
 	maxIter = 15;
 	abstol  = 1e-7;

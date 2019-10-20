@@ -1,4 +1,5 @@
 % 2018-02-25 14:09:11.339322390 
+%% smooth the mesh
 function ds = smooth_curvilinear(obj,opt,fixed)
 	if (nargin() < 2)
 		opt = struct();

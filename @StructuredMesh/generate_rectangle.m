@@ -1,4 +1,5 @@
 % Thu 10 May 18:05:02 CEST 2018
+%% discretize a rectangular domain
 function obj = generate_rectangle(obj,X,Y,n)
 	X = linspace(X(1),X(2),n(1));
 	Y = linspace(Y(1),Y(2),n(2));

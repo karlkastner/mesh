@@ -1,4 +1,5 @@
 % Thu 22 Nov 13:54:11 CET 2018
+%% return chain of boundary points
 function [bnd,iscorner] = boundary_chain(obj)
 	valid = isfinite(obj.X);
 	invalid = true(obj.n+2);

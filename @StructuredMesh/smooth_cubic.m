@@ -1,4 +1,5 @@
 % Wed 28 Nov 09:45:54 CET 2018
+%% cubically smooth the mesh coordinates
 function smooth_cubic(obj,opt,project)
 	if (nargin()<2)
 		opt = struct;

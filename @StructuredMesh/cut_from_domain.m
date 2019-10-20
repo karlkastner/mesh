@@ -1,4 +1,5 @@
 % Thu 17 May 15:13:32 CEST 2018
+%% cut subdomain
 % TODO if this is aplied before computing the sn-transform,
 %      then 4-neighbourhood is sufficient
 function [Dx,Dy,obj] = cut_from_domain(obj,cutfun)

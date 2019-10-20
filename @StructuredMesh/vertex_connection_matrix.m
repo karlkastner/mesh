@@ -1,4 +1,6 @@
 % Thu 22 Nov 12:36:28 CET 2018
+%% connectivity of neighbouring vertices
+%% TODO same for elements
 function A = vertex_connection_matrix(obj)
 	nn = prod(obj.n);
 	id = reshape((1:nn)',obj.n);

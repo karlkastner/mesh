@@ -1,0 +1,10 @@
+lumping and interpolation of spatio-temporal data into a "mesh" that is spaced
+optimally for the local density of sample points
+
+allows for processing of large data sets with lower memory consumption and run time
+
+intended for ADCP data processing
+
+Overcomes the limitation of gridding, where some grid cells can have an insufficient
+number of samples
+

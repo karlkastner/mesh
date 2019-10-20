@@ -1,0 +1,1871 @@
+\documentclass[11pt,twoside,a4paper]{article}
+%{book}
+
+% This is an automatically generated file.
+% Do not edit it.
+% Changes to this file are not preserved!
+
+\usepackage{tocloft}
+\usepackage{hyperref}
+\usepackage{listings}
+\lstset{
+basicstyle=\small\ttfamily,
+columns=flexible,
+breaklines=true
+}
+\setlength{\cftsubsecnumwidth}{3.5em}
+
+\title{Manual for Package:
+mesh\protect\\Revision 1:2M
+}
+\author{Karl K\"astner}
+%\date{}
+
+\begin{document}
+
+\maketitle
+
+\tableofcontents
+
+% licence
+% abstract
+
+
+\section{@StructuredMesh}
+\subsection{StructuredMesh}
+${}$
+\begin{lstlisting}
+ structured mesh processing
+ compatible with Delft3D
+ also provides set-up of discretisation matrices
+
+\end{lstlisting}
+\subsection{apply\_boundary\_condition}
+${}$
+\begin{lstlisting}
+ apply boundary condition and the four sides of the domain
+ TODO: allow for interior boudaries
+
+\end{lstlisting}
+\subsection{bc\_from\_shp}
+${}$
+\begin{lstlisting}
+ read boundary condition from shape file
+
+\end{lstlisting}
+\subsection{bc\_index}
+${}$
+\begin{lstlisting}
+ TODO this is deprecated
+ generate indices for boundary edges
+
+\end{lstlisting}
+\subsection{bc\_isinvalid}
+${}$
+\begin{lstlisting}
+ check boundary conditions for stacked domains
+
+\end{lstlisting}
+\subsection{block}
+${}$
+\begin{lstlisting}
+ stack multiple meshes to complex domain
+
+\end{lstlisting}
+\subsection{boundary\_chain}
+${}$
+\begin{lstlisting}
+ return chain of boundary points
+
+\end{lstlisting}
+\subsection{boundary\_direction}
+${}$
+\begin{lstlisting}
+ return direction of boundary segment
+
+\end{lstlisting}
+\subsection{boundary\_indices}
+${}$
+\begin{lstlisting}
+ indices of boundary segments
+ id : index of boundary point
+ jd : index of 
+
+\end{lstlisting}
+\subsection{centreline}
+${}$
+\begin{lstlisting}
+ domain (channel) centreline along chosen dimension
+
+\end{lstlisting}
+\subsection{child}
+${}$
+\begin{lstlisting}
+ hierarchical mesh generation (for bifurcations)
+
+\end{lstlisting}
+\subsection{corner\_indices}
+${}$
+\begin{lstlisting}
+ indices of domain corners
+
+\end{lstlisting}
+\subsection{cut\_from\_domain}
+${}$
+\begin{lstlisting}
+ cut subdomain
+
+\end{lstlisting}
+\subsection{export\_delf3d\_dep}
+${}$
+\begin{lstlisting}
+ export bathymetry data in Delft3D dep-format
+
+\end{lstlisting}
+\subsection{export\_delft3d\_bnd}
+${}$
+\begin{lstlisting}
+ export the boundary in delft3d compatible format 
+
+\end{lstlisting}
+\subsection{export\_delft3d\_grd}
+${}$
+\begin{lstlisting}
+ export mesh in deltares delft3D grd file format
+
+\end{lstlisting}
+\subsection{export\_delft3d\_ini}
+${}$
+\begin{lstlisting}
+ export delft3D compatible initial condition file
+
+\end{lstlisting}
+\subsection{export\_shp}
+${}$
+\begin{lstlisting}
+ export mesh elements as shape file
+
+\end{lstlisting}
+\subsection{extract\_elements}
+${}$
+\begin{lstlisting}
+ element indices from grid
+
+\end{lstlisting}
+\subsection{flip\_dimension}
+${}$
+\begin{lstlisting}
+ flip left and right or top and down
+
+\end{lstlisting}
+\subsection{from\_1d\_mesh}
+${}$
+\begin{lstlisting}
+ convert a 1D mesh to 2D mesh consisting of quadrilaterals
+
+\end{lstlisting}
+\subsection{generate\_bifurcation}
+${}$
+\begin{lstlisting}
+ creates a mesh for bifurcation with bluff, which is required for delft3d grids
+ TODO do not fix indices
+ TODO determine p individually
+ bank : bankline shapefile
+ nn : number of points across branches
+ ds: spacing along s
+ p : fraction of right side branch
+ level : generate hierarchical mesh,
+	  grid points in each branch will be 2^n+1,
+	  and sub meshes until level 1 will be generated
+
+ for lower levels the connecting volumes remain narrow,
+ as the two volumes left and right of the division line are not scaled
+ -> post smoothing required
+
+ nn: n=6; for idx=1:5; n(end+1)  = 2*(n(end)-3)+3, end
+ ns: n=18; for idx=1:5; n(end+1) = 2*(n(end)-2)+2, end (should be improved to 2*(n-1)+1
+
+\end{lstlisting}
+\subsection{generate\_disk}
+${}$
+\begin{lstlisting}
+ generate semicircular domain
+
+\end{lstlisting}
+\subsection{generate\_from\_centreline}
+${}$
+\begin{lstlisting}
+ generate a mesh from a given centreline
+ TODO : avoid crossing of inner bed points in sharp bends
+
+\end{lstlisting}
+\subsection{generate\_rectangle}
+${}$
+\begin{lstlisting}
+ discretize a rectangular domain
+
+\end{lstlisting}
+\subsection{generate\_structured\_grid}
+${}$
+\begin{lstlisting}
+ generate a structured mesh consisting of several sub-meshes
+
+\end{lstlisting}
+\subsection{grid\_block}
+${}$
+\begin{lstlisting}
+ mesh a subdomain
+
+\end{lstlisting}
+\subsection{improve}
+${}$
+\begin{lstlisting}
+ improve (smooth) the mesh
+
+\end{lstlisting}
+\subsection{interp\_elem2point}
+${}$
+\begin{lstlisting}
+ interpolate values sampled at element centres to element corners
+ TODO allow also interpolation to u and v points
+
+\end{lstlisting}
+\subsection{mesh\_polygon}
+${}$
+\begin{lstlisting}
+ mesh a 1D channel, where boundaries are given as polygon
+ TODO, this should better use voronoi-tesselation (see centreline class)
+
+\end{lstlisting}
+\subsection{orthogonality}
+${}$
+\begin{lstlisting}
+ orthogonality of elements
+
+\end{lstlisting}
+\subsection{orthogonalize}
+${}$
+\begin{lstlisting}
+ orthogonalize mesh
+ set x of point coordinates to 1/2
+
+\end{lstlisting}
+\subsection{plot}
+${}$
+\begin{lstlisting}
+ plot the mesh
+
+\end{lstlisting}
+\subsection{plot\_boundary}
+${}$
+\begin{lstlisting}
+ plot the mesh boundary
+
+\end{lstlisting}
+\subsection{plot\_coupling}
+${}$
+\begin{lstlisting}
+ plot connected vertices, see vertex_connection_matrix.m
+
+\end{lstlisting}
+\subsection{plot\_orthogonality}
+${}$
+\begin{lstlisting}
+ plot mesh with edges colored by orthogonality condition
+
+\end{lstlisting}
+\subsection{quiver}
+${}$
+\begin{lstlisting}
+ quiver plot of velocity
+
+\end{lstlisting}
+\subsection{read\_delft3d\_dep}
+${}$
+\begin{lstlisting}
+ depth in dat file is defined at volume centres (water leve point)
+ first row, first column and last column are buffer
+ but nast colum is not (only when outflow?)
+
+\end{lstlisting}
+\subsection{read\_delft3d\_grd}
+${}$
+\begin{lstlisting}
+ read mesh in delft3D grd format
+
+\end{lstlisting}
+\subsection{smooth\_cubic}
+${}$
+\begin{lstlisting}
+ cubically smooth the mesh coordinates
+
+\end{lstlisting}
+\subsection{smooth\_curvilinear}
+${}$
+\begin{lstlisting}
+ smooth the mesh
+relax = (10+relax)/11;
+relax = min(0.5,relax);
+
+\end{lstlisting}
+\subsection{smooth\_laplacian}
+${}$
+\begin{lstlisting}
+ smooth the mesh coordinates
+
+ better than before, but causes dn in inner bends to be narrower than in outer bends
+ (straightens the lines)
+ better smooth p: i.e. fractional distance from left to right,
+ this is complicated at the bif
+ better: two neighbour smooth: smooth dn and ds with left/right, top bottom only 
+
+\end{lstlisting}
+\subsection{smooth\_simple}
+${}$
+\begin{lstlisting}
+
+ smooth the mesh coordinates
+
+\end{lstlisting}
+\subsection{smooth\_sn}
+${}$
+\begin{lstlisting}
+
+ smooth the mesh coordinates
+
+
+\end{lstlisting}
+\subsection{snap}
+${}$
+\begin{lstlisting}
+ snap two meshes that connect at their domain boundaries
+
+\end{lstlisting}
+\subsection{statistic}
+${}$
+\begin{lstlisting}
+ compute mesh statistics
+
+\end{lstlisting}
+\subsection{to\_unstructured\_mesh}
+${}$
+\begin{lstlisting}
+ convert to unstructured mesh
+
+\end{lstlisting}
+\subsection{transpose\_dimension}
+${}$
+\begin{lstlisting}
+ transpose dimensions
+
+\end{lstlisting}
+\subsection{vertex\_connection\_matrix}
+${}$
+\begin{lstlisting}
+ connectivity of neighbouring vertices
+ TODO same for elements
+
+\end{lstlisting}
+\section{@UnstructuredMesh}
+\subsection{UnstructuredMesh}
+${}$
+\begin{lstlisting}
+ class containing some meshing functionality
+ complementary to Mesh_2d, Mesh_3d, Tree_2d and Tree_3d
+
+\end{lstlisting}
+\subsection{add\_element}
+${}$
+\begin{lstlisting}
+ add an element with vertex indices, vertices already exist
+
+\end{lstlisting}
+\subsection{add\_vertex}
+${}$
+\begin{lstlisting}
+ add a vertex
+
+\end{lstlisting}
+\subsection{angle}
+${}$
+\begin{lstlisting}
+ interior angles of each element
+
+\end{lstlisting}
+\subsection{assign\_1d}
+${}$
+\begin{lstlisting}
+ assign coordinatex (x0,y0) to containing element
+
+\end{lstlisting}
+\subsection{assign\_2d}
+${}$
+\begin{lstlisting}
+ assign coordinatex (x0,y0) to containing element
+
+\end{lstlisting}
+\subsection{assign\_3d}
+${}$
+\begin{lstlisting}
+ assign coordinatex (P0,y0) to containing element
+
+\end{lstlisting}
+\subsection{bnd\_1d}
+${}$
+\begin{lstlisting}
+ left and right end points for 1D meshes
+
+\end{lstlisting}
+\subsection{boundary\_1d}
+${}$
+\begin{lstlisting}
+ convert 1D mesh to 2D mesh
+
+\end{lstlisting}
+\subsection{boundary\_chain2}
+${}$
+\begin{lstlisting}
+ get chained indices of boundary segments,
+ used for setting up higher order polynomials along the boundary
+
+\end{lstlisting}
+\subsection{boundary\_length\_and\_direction}
+${}$
+\begin{lstlisting}
+ edge length and direction of boundary segments
+ TODO, this should be just edge length and direction
+
+\end{lstlisting}
+\subsection{cat}
+${}$
+\begin{lstlisting}
+ concatenate two meshes
+
+\end{lstlisting}
+\subsection{chain\_1d}
+${}$
+\begin{lstlisting}
+ chain 1D elements (segments)
+
+\end{lstlisting}
+\subsection{check\_dublicate\_elements}
+${}$
+\begin{lstlisting}
+ check if elements are duplicate elements
+ TODO, this does not check if elements cover each other, for example
+ hierarchical meshes or ABC+BCD and ABD+ACD
+ TODO check overlap by computation of area
+
+\end{lstlisting}
+\subsection{compute\_elem2elem}
+${}$
+\begin{lstlisting}
+ set up element2element neighbourhood relation
+
+\end{lstlisting}
+\subsection{connect\_1d\_2d}
+${}$
+\begin{lstlisting}
+ auto merge 1d and 2d mesh
+ this silently requires that 1d segments consist at least of 3 elements
+ TODO only implemented for triangles
+
+\end{lstlisting}
+\subsection{convert\_2d\_to\_1d}
+${}$
+\begin{lstlisting}
+
+\end{lstlisting}
+\subsection{copy}
+${}$
+\begin{lstlisting}
+ copy constructor
+
+\end{lstlisting}
+\subsection{crop}
+${}$
+\begin{lstlisting}
+ crop domain 
+
+\end{lstlisting}
+\subsection{cross\_section}
+${}$
+\begin{lstlisting}
+ get cross-sections for 1D elements
+
+\end{lstlisting}
+\subsection{cut}
+${}$
+\begin{lstlisting}
+ crop mesh to polygonal region
+
+\end{lstlisting}
+\subsection{delete\_element}
+${}$
+\begin{lstlisting}
+ delete an element
+
+\end{lstlisting}
+\subsection{derivative\_matrix\_1d}
+${}$
+\begin{lstlisting}
+ first order first derivative discretisation matrix on the 1d mesh
+
+\end{lstlisting}
+\subsection{derivative\_matrix\_2d}
+${}$
+\begin{lstlisting}
+ first order first derivative discretisation matrix on the mesh
+
+\end{lstlisting}
+\subsection{derivative\_matrix\_2d\_2}
+${}$
+\begin{lstlisting}
+ second order derivative matrix on a triangulation
+
+\end{lstlisting}
+\subsection{derivative\_matrix\_3d}
+${}$
+\begin{lstlisting}
+ first order first derivative discretisation matrix on the mesh
+
+\end{lstlisting}
+\subsection{distance}
+${}$
+\begin{lstlisting}
+ distance along edges from a point set to all other points
+
+ open      : id of start point(s)
+ countflag : if set use number of hops as distance not the euclidean distance
+
+\end{lstlisting}
+\subsection{dual\_mesh}
+${}$
+\begin{lstlisting}
+ dual mesh formed by the centre of cicumference
+ the dual mesh consists not only of triangles
+ TODO rename in generate dual mesh
+
+\end{lstlisting}
+\subsection{edge\_length}
+${}$
+\begin{lstlisting}
+ euclidean edge length
+
+\end{lstlisting}
+\subsection{edge\_midpoint}
+${}$
+\begin{lstlisting}
+ edge mid-points
+
+\end{lstlisting}
+\subsection{edges\_from\_elements}
+${}$
+\begin{lstlisting}
+ edges and boundaries from elements
+
+\end{lstlisting}
+\subsection{eigs}
+${}$
+\begin{lstlisting}
+ eigenvalues of the lapalcian on the mesh
+
+\end{lstlisting}
+\subsection{elem2edge\_}
+${}$
+\begin{lstlisting}
+ pointer of element to edge
+
+\end{lstlisting}
+\subsection{elem2elem\_matrix}
+${}$
+\begin{lstlisting}
+ matrix with neighbourhood relations for each element
+
+\end{lstlisting}
+\subsection{element\_area}
+${}$
+\begin{lstlisting}
+ area of elements
+ 1d elements have zero area and are not processed
+
+\end{lstlisting}
+\subsection{element\_centroid}
+${}$
+\begin{lstlisting}
+ centroids of lements
+
+\end{lstlisting}
+\subsection{element\_midpoint}
+${}$
+\begin{lstlisting}
+ barymetric centre of elements
+
+\end{lstlisting}
+\subsection{elements\_from\_edges}
+${}$
+\begin{lstlisting}
+ 2D elements from edges
+
+\end{lstlisting}
+\subsection{eval2pval}
+${}$
+\begin{lstlisting}
+ element (centroid) value to vertex value
+ TODO, use dual mesh or triangulation
+
+\end{lstlisting}
+\subsection{export\_delft3d\_net}
+${}$
+\begin{lstlisting}
+ export into DFLOWFM delft3d net.nc file
+
+\end{lstlisting}
+\subsection{export\_msh}
+${}$
+\begin{lstlisting}
+ export mesh in GMSH msh format
+
+\end{lstlisting}
+\subsection{export\_pos}
+${}$
+\begin{lstlisting}
+ export triangles and vertex values to gmsh pos-file format (x,y,z,val)
+ intended for re-meshing with values representing local mesh size
+
+\end{lstlisting}
+\subsection{export\_shp}
+${}$
+\begin{lstlisting}
+ export edges to GIS shapefile
+ each element as separate polygon with one z-value
+
+\end{lstlisting}
+\subsection{facing\_element}
+${}$
+\begin{lstlisting}
+ get triangle ndx that is opposit, e.g. "facing" the vertex vdx of triangle tdx
+
+\end{lstlisting}
+\subsection{filter\_neighbour}
+${}$
+\begin{lstlisting}
+ apply a function on the values on connected vertices
+
+\end{lstlisting}
+\subsection{find\_encroached\_edges}
+${}$
+\begin{lstlisting}
+ find encroached edges in a triangulation,
+ i.e. edges for which on of the two facing point false into their enclosing
+ circle
+
+\end{lstlisting}
+\subsection{flip}
+${}$
+\begin{lstlisting}
+ flip edges between two triangles
+	flip
+	for each side
+		if (connection between opposit points shorter than between edges, swap edge)
+		this-> flip
+		that-> flip
+	end
+
+\end{lstlisting}
+\subsection{flip\_global}
+${}$
+\begin{lstlisting}
+ recursively flip edges, i.e ABC+BCD -> ABD+ADC,
+ when new edge (diagonal) is shorter
+
+\end{lstlisting}
+\subsection{flip\_quality}
+${}$
+\begin{lstlisting}
+ flip edges, when mesh quality constraint improves
+
+\end{lstlisting}
+\subsection{gaussmat\_2d}
+${}$
+\begin{lstlisting}
+ matrix for gauss integration on a triangulation
+
+\end{lstlisting}
+\subsection{generate\_chews\_first}
+${}$
+\begin{lstlisting}
+ triangulate domain with chew's first algorithm
+
+\end{lstlisting}
+\subsection{generate\_from\_centreline\_1d}
+${}$
+\begin{lstlisting}
+ generate a mesh from centreline
+
+\end{lstlisting}
+\subsection{generate\_from\_centreline\_2d}
+${}$
+\begin{lstlisting}
+ generate mesh from centreline
+ TODO allow number of segments to change
+
+ sets up a simple quadrilateral mesh in S-N coordinates
+ centreline (must be sorted in streamwise direction)
+ input variables:
+ cS : S (streamwise) coordinates of centreline
+ cL : N (spanwise) coordinate of left bank
+ cR : N (spanwise) coordinate of right bank
+ input variables controlling ouptut resolution:
+ S  : S coordinate of slices in S-direction (diff(S) is element width)
+        must be sorted in s-direction
+ n  : n number of points per cross section
+        (n-1) is number of elements per cross section
+ output variables:
+ mesh.{X,Y,S,N} : point coordinates
+ mesh.T         : point indices of elements (corners of the quadrilaterals)
+ -> make it orthogonal to banks by using a spline along n
+
+\end{lstlisting}
+\subsection{generate\_frontal}
+${}$
+\begin{lstlisting}
+
+\end{lstlisting}
+\subsection{generate\_ghost\_elements}
+${}$
+\begin{lstlisting}
+ generate ghost elements, i.e. elements at the domain boundary, these 
+ elements can overlap
+
+ when the project flag set, ghost points are porjected to the boundary,
+ the project flag is set for dual mesh generation
+ the project flag is unset for application of the boundary condition
+
+\end{lstlisting}
+\subsection{generate\_gmsh}
+${}$
+\begin{lstlisting}
+ generate a mesh from a polygon using gmsh
+
+ inshp      : file name of shape file of preloaded shape file containing a polygon
+ obase      : base of output file name
+ resolution : struct containing default mesh resolution settings
+ resfile_C  : file names of shape files, defining local resolution in polygonal regions
+ opt        : options, see below
+
+ this is a Static function
+
+\end{lstlisting}
+\subsection{generate\_hierarchical}
+${}$
+\begin{lstlisting}
+ generate a hierachical mesh by recursively splitting elements
+ containing boundary points
+
+\end{lstlisting}
+\subsection{generate\_triangle}
+${}$
+\begin{lstlisting}
+ generate a mesh from a polygon using the programme "Triangle"
+
+\end{lstlisting}
+\subsection{generate\_uniform\_1d}
+${}$
+\begin{lstlisting}
+ generate a uniformly spaced 1D mesh
+
+\end{lstlisting}
+\subsection{generate\_uniform\_quadrilateral}
+${}$
+\begin{lstlisting}
+ generate a uniform 2D mesh
+
+\end{lstlisting}
+\subsection{generate\_uniform\_tetra}
+${}$
+\begin{lstlisting}
+ uniformly tesselate a rhombic domain in 3D into tetrahedra
+
+\end{lstlisting}
+\subsection{generate\_uniform\_triangulation}
+${}$
+\begin{lstlisting}
+ uniformly tesselate a rectangular (2d) domain into triangles
+
+\end{lstlisting}
+\subsection{get\_facing\_and\_shared\_vertices}
+${}$
+\begin{lstlisting}
+ for a pairwise list (array) of triangles, determine there common and facing edges
+
+\end{lstlisting}
+\subsection{grid2tri}
+${}$
+\begin{lstlisting}
+ topologically split a uniform mesh on a rectangular domain into triangles
+
+\end{lstlisting}
+\subsection{import\_delft3d\_net}
+${}$
+\begin{lstlisting}
+ import mesh from Delft3d file ( {filanme}_net.nc )
+
+\end{lstlisting}
+\subsection{import\_msh}
+${}$
+\begin{lstlisting}
+ import mesh from {filename}.msh files as generated by GSMH
+
+\end{lstlisting}
+\subsection{import\_triangle}
+${}$
+\begin{lstlisting}
+ import a mesh generated with triangle (ele and node)
+
+\end{lstlisting}
+\subsection{improve\_iterative\_relocate\_insert}
+${}$
+\begin{lstlisting}
+ iteratively improve the mesh by inserting vertices and smoothing
+		fprintf('Iteration %d, %d elements, %d vertices, %d obtuse elements (%g%%)\n', iter, obj.nelem, obj.np, nobtuse, nobtuse./obj.nelem);
+
+\end{lstlisting}
+\subsection{improve\_iterative\_relocate\_uniform}
+${}$
+\begin{lstlisting}
+ improve mesh by smoothing following by uniform refinement
+		fprintf('Iteration %d, %d elements, %d vertices, %d obtuse elements (%g%%)\n', iter, obj.nelem, obj.np, nobtuse, nobtuse./obj.nelem);
+
+\end{lstlisting}
+\subsection{improve\_relocate\_global1}
+${}$
+\begin{lstlisting}
+ iteratively improve angles to remove obtuse triangles
+
+\end{lstlisting}
+\subsection{improve\_relocate\_global2}
+${}$
+\begin{lstlisting}
+ improve mesh globally
+
+\end{lstlisting}
+\subsection{improve\_relocate\_global\_3}
+${}$
+\begin{lstlisting}
+ improve mesh quality globally
+
+\end{lstlisting}
+\subsection{improve\_relocate\_local}
+${}$
+\begin{lstlisting}
+ iteratively improve angles to remove obtuse triangles
+
+\end{lstlisting}
+\subsection{improve\_relocate\_local\_old}
+${}$
+\begin{lstlisting}
+ iteratively improve angles to remove obtuse triangles
+
+\end{lstlisting}
+\subsection{improve\_topology}
+${}$
+\begin{lstlisting}
+ improve mesh topology
+
+\end{lstlisting}
+\subsection{insert\_mid\_points}
+${}$
+\begin{lstlisting}
+ insert mid points into the mesh
+ the new mesh is of much lower quality, but if all edges are flipped,
+ this leads to the sqrt(2) refinement
+
+\end{lstlisting}
+\subsection{insert\_steiner\_points}
+${}$
+\begin{lstlisting}
+ refine mesh by inserting steiner points (centre of circumference)
+ for elements specified by tdx
+
+\end{lstlisting}
+\subsection{integrate\_1d}
+${}$
+\begin{lstlisting}
+ integrate a quantity val across the mesh
+
+\end{lstlisting}
+\subsection{integrate\_discharge}
+${}$
+\begin{lstlisting}
+ integrate discharge
+
+\end{lstlisting}
+\subsection{interp\_1d}
+${}$
+\begin{lstlisting}
+ interpolate on a 1D mesh
+
+\end{lstlisting}
+\subsection{interp\_2d}
+${}$
+\begin{lstlisting}
+ interpolate on a 2D mesh
+
+\end{lstlisting}
+\subsection{interp\_fourier}
+${}$
+\begin{lstlisting}
+ interpolate values on the mesh using fourier methods
+
+\end{lstlisting}
+\subsection{interp\_tikhonov\_1d}
+${}$
+\begin{lstlisting}
+ interpolation with Tikhonov regularisation
+
+\end{lstlisting}
+\subsection{interp\_tikhonov\_2d}
+${}$
+\begin{lstlisting}
+ interpolation wiht Tikhonov regularisation in 2D
+
+\end{lstlisting}
+\subsection{interp\_tikhonov\_3d}
+${}$
+\begin{lstlisting}
+
+\end{lstlisting}
+\subsection{interpolate\_from\_boundary}
+${}$
+\begin{lstlisting}
+ interpolate interior values from the boundary
+
+\end{lstlisting}
+\subsection{interpolate\_point}
+${}$
+\begin{lstlisting}
+ interpolate from samples to mesh points by IDW method
+
+\end{lstlisting}
+\subsection{interpolation\_error\_1d}
+${}$
+\begin{lstlisting}
+ estimate interpolation error in 1D
+
+\end{lstlisting}
+\subsection{interpolation\_error\_2d}
+${}$
+\begin{lstlisting}
+ interpolate error in 2D
+
+\end{lstlisting}
+\subsection{interpolation\_error\_3d}
+${}$
+\begin{lstlisting}
+ estimate interpolation error in 3D
+
+\end{lstlisting}
+\subsection{interpolation\_matrix\_1d}
+${}$
+\begin{lstlisting}
+ linear interpolation matrix from mesh points to arbitrary coordinates P0
+
+\end{lstlisting}
+\subsection{interpolation\_matrix\_2d}
+${}$
+\begin{lstlisting}
+ linear interpolation matrix from mesh points to arbitrary coordinates P0,y0
+
+\end{lstlisting}
+\subsection{interpolation\_matrix\_3d}
+${}$
+\begin{lstlisting}
+ interpolation matrix for interpolation in 3D
+
+\end{lstlisting}
+\subsection{isacute}
+${}$
+\begin{lstlisting}
+ determine acute triangles
+
+\end{lstlisting}
+\subsection{isobtuse}
+${}$
+\begin{lstlisting}
+ determine obtuse triangles
+
+\end{lstlisting}
+\subsection{iterate\_smooth2}
+${}$
+\begin{lstlisting}
+ iteratively improve the mesh by smoothing
+
+\end{lstlisting}
+\subsection{limit\_by\_distance}
+${}$
+\begin{lstlisting}
+ max edge length
+ minimum distance
+ TODO, this will always be zero
+
+\end{lstlisting}
+\subsection{make\_elements\_ccw}
+${}$
+\begin{lstlisting}
+ make all 2D elements clock wise (such that their area is positive)
+
+\end{lstlisting}
+\subsection{merge\_duplicate\_points}
+${}$
+\begin{lstlisting}
+ merge duplicate points
+
+\end{lstlisting}
+\subsection{merge\_facing\_blunt\_triangles}
+${}$
+\begin{lstlisting}
+ merge blunt triangles that face each other
+
+\end{lstlisting}
+\subsection{mesh1}
+${}$
+\begin{lstlisting}
+ mesh in 1D
+
+\end{lstlisting}
+\subsection{mesh\_1d}
+${}$
+\begin{lstlisting}
+ extract the 1d mesh
+
+\end{lstlisting}
+\subsection{mesh\_2d}
+${}$
+\begin{lstlisting}
+ extract the 1d mesh
+
+\end{lstlisting}
+\subsection{mesh\_junctions}
+${}$
+\begin{lstlisting}
+ mesh junctions of a channel network
+		hold on
+
+\end{lstlisting}
+\subsection{n\_vertices\_1d}
+${}$
+\begin{lstlisting}
+
+\end{lstlisting}
+\subsection{nearest\_boundary}
+${}$
+\begin{lstlisting}
+ determine nearest boundary segment for each input coordindate
+
+\end{lstlisting}
+\subsection{nedge\_}
+${}$
+\begin{lstlisting}
+
+\end{lstlisting}
+\subsection{nonobtuse\_refinement}
+${}$
+\begin{lstlisting}
+ nonobtuse refinement according to Korotov
+ not feasible for most obtuse triangles
+
+\end{lstlisting}
+\subsection{objective\_A}
+${}$
+\begin{lstlisting}
+ one objective function value per angle
+
+\end{lstlisting}
+\subsection{objective\_T}
+${}$
+\begin{lstlisting}
+ wrapper for mesh optimisation objective functions univariate in triangles
+
+\end{lstlisting}
+\subsection{objective\_angle}
+${}$
+\begin{lstlisting}
+ objective function for iterative angle improvement
+
+\end{lstlisting}
+\subsection{optimum\_angle}
+${}$
+\begin{lstlisting}
+ optimum angle for each vertex = 360^\deg / number of connected edges
+
+\end{lstlisting}
+\subsection{orthogonality\_quadrilaterals}
+${}$
+\begin{lstlisting}
+ orthogonality condition for quadrilaterals
+
+\end{lstlisting}
+\subsection{path}
+${}$
+\begin{lstlisting}
+ path along edges
+
+\end{lstlisting}
+\subsection{plot}
+${}$
+\begin{lstlisting}
+ plot the mesh (and a discretised function) as a surface and net
+
+\end{lstlisting}
+\subsection{plot1d}
+${}$
+\begin{lstlisting}
+ plot 1D mesh
+
+\end{lstlisting}
+\subsection{plot3}
+${}$
+\begin{lstlisting}
+ plot mesh and values
+
+\end{lstlisting}
+\subsection{plotcs}
+${}$
+\begin{lstlisting}
+ plot cross section
+
+\end{lstlisting}
+\subsection{project\_to\_boundary}
+${}$
+\begin{lstlisting}
+ project a point to the boundary
+
+\end{lstlisting}
+\subsection{pval2eval}
+${}$
+\begin{lstlisting}
+ vertex to element value
+
+\end{lstlisting}
+\subsection{quad2tri}
+${}$
+\begin{lstlisting}
+ quadrilaterals to triangles
+
+\end{lstlisting}
+\subsection{raster\_boundary}
+${}$
+\begin{lstlisting}
+
+\end{lstlisting}
+\subsection{recover\_edges}
+${}$
+\begin{lstlisting}
+ recover (boundary) edges
+
+\end{lstlisting}
+\subsection{refine}
+${}$
+\begin{lstlisting}
+ refine by splitting marked triangles
+
+\end{lstlisting}
+\subsection{refine\_edge\_halving}
+${}$
+\begin{lstlisting}
+ mesh refinement by longest edge bisection
+
+\end{lstlisting}
+\subsection{remove\_empty\_triangles}
+${}$
+\begin{lstlisting}
+ remove degenerated triangles with zero area
+
+\end{lstlisting}
+\subsection{remove\_isolated\_vertices}
+${}$
+\begin{lstlisting}
+ remove points that are not part of the mesh
+ (gmsh leaves sometimes spurious points in the msh file)
+
+\end{lstlisting}
+\subsection{remove\_points}
+${}$
+\begin{lstlisting}
+ remove points and associated elements
+
+\end{lstlisting}
+\subsection{remove\_quartered\_triangles}
+${}$
+\begin{lstlisting}
+ point has connectivity 4 and is not on the boundary
+
+\end{lstlisting}
+\subsection{remove\_small\_islands}
+${}$
+\begin{lstlisting}
+ delft3D requires islands to have at least 7 edges
+ this functions splits edges surrounding small islands
+
+\end{lstlisting}
+\subsection{remove\_triply\_connected\_boundary\_vertices}
+${}$
+\begin{lstlisting}
+ remove boundary vertices that are connected only to three vertices
+
+\end{lstlisting}
+\subsection{remove\_trisected\_triangles}
+${}$
+\begin{lstlisting}
+ remove trisected trianges
+ point has connectivity 3 and is not on the boundary
+
+\end{lstlisting}
+\subsection{renumber\_point\_indices}
+${}$
+\begin{lstlisting}
+ renumber vertex indices
+
+\end{lstlisting}
+\subsection{resolve\_8\_vertices}
+${}$
+\begin{lstlisting}
+ improve mesh by removing one edge from vertices with 8-edges
+ (an interior vertex in a regular triangulation has 6 neighbours,
+  and unstructured meshes with local refinement are possible with
+  5 and 7 neighbours, 4,3, or 8 and more connected vertices are not necessary
+
+\end{lstlisting}
+\subsection{restore\_acuteness}
+${}$
+\begin{lstlisting}
+ restore acuteness
+ Laplacian smoothing may at some places decrease the mesh quality,
+ this locally restores acute elements
+
+\end{lstlisting}
+\subsection{retriangulate}
+${}$
+\begin{lstlisting}
+ retriangulate the mesh
+
+\end{lstlisting}
+\subsection{ruppert}
+${}$
+\begin{lstlisting}
+ refine the mesh using ruppert's algorithm
+
+\end{lstlisting}
+\subsection{scale\_to\_boundary}
+${}$
+\begin{lstlisting}
+ scale hierarchical mesh to match boundary coordinates
+ experimental
+
+\end{lstlisting}
+\subsection{scatterplot}
+${}$
+\begin{lstlisting}
+ scatterplot of data on mesh
+
+\end{lstlisting}
+\subsection{segment}
+${}$
+\begin{lstlisting}
+ segment the mesh into parts according to laplacian eigenvalues
+
+\end{lstlisting}
+\subsection{smooth2}
+${}$
+\begin{lstlisting}
+ Laplacian smoothing of vertex coordinates,
+ replace every point by the average coordinate of its neibghbours
+
+\end{lstlisting}
+\subsection{smooth\_1d}
+${}$
+\begin{lstlisting}
+ smoothes values in each reach
+ does not smooth the values at the connection points
+
+\end{lstlisting}
+\subsection{smooth\_val}
+${}$
+\begin{lstlisting}
+ smooth values on the mesh
+
+\end{lstlisting}
+\subsection{smoothness}
+${}$
+\begin{lstlisting}
+ mesh smoothness as ratio of maximum edge length and minimum edge length
+
+\end{lstlisting}
+\subsection{split3}
+${}$
+\begin{lstlisting}
+ split those triangles that contain a boundary point in three pieces,
+ for hierrachical mesh generation
+
+\end{lstlisting}
+\subsection{split\_edge}
+${}$
+\begin{lstlisting}
+ split an edge
+
+\end{lstlisting}
+\subsection{split\_edge\_perpendicular}
+${}$
+\begin{lstlisting}
+ split edge perpendicularly
+
+\end{lstlisting}
+\subsection{split\_elem\_1d}
+${}$
+\begin{lstlisting}
+ split a 1d element
+
+\end{lstlisting}
+\subsection{split\_encroached\_edges}
+${}$
+\begin{lstlisting}
+ recursively split encroached edges
+
+\end{lstlisting}
+\subsection{split\_obtuse}
+${}$
+\begin{lstlisting}
+ split obtuse elements
+
+\end{lstlisting}
+\subsection{split\_unsmooth\_edges}
+${}$
+\begin{lstlisting}
+ split unsmooth edges
+
+\end{lstlisting}
+\subsection{statistics}
+${}$
+\begin{lstlisting}
+ compute mesh statistics
+
+\end{lstlisting}
+\subsection{streamwise\_derivative\_matrix}
+${}$
+\begin{lstlisting}
+ streamwise derivative matrix
+
+\end{lstlisting}
+\subsection{thalweg}
+${}$
+\begin{lstlisting}
+ thalweg (deepest point along channel)
+
+\end{lstlisting}
+\subsection{to\_single}
+${}$
+\begin{lstlisting}
+ TODO, also with indices
+
+\end{lstlisting}
+\subsection{uncross\_elements}
+${}$
+\begin{lstlisting}
+ make sure, that 4 point elements span an area, and do not form a cross
+ a call to this function should be succeeded by make_ccw
+ this operator is idempotent
+
+\end{lstlisting}
+\subsection{uncross\_quadrilaterals}
+${}$
+\begin{lstlisting}
+ make sure, that 4 point elements span an area, and do not form a cross
+ a call to this function should be succeeded by make_ccw
+ this operator is idempotent
+
+\end{lstlisting}
+\subsection{vertex\_distance}
+${}$
+\begin{lstlisting}
+ connectivity of directly connected vertices
+
+\end{lstlisting}
+\subsection{vertex\_to\_edge}
+${}$
+\begin{lstlisting}
+ connectivity matrix between vertices and adjacent edges
+
+\end{lstlisting}
+\subsection{vertex\_to\_element}
+${}$
+\begin{lstlisting}
+ connectivity matrix between vertices and elements
+
+\end{lstlisting}
+\subsection{vertex\_to\_vertex}
+${}$
+\begin{lstlisting}
+ connectivity matrix between vertices
+
+\end{lstlisting}
+\subsection{weighed\_laplacian\_smoothing}
+${}$
+\begin{lstlisting}
+ weighed Laplacian smoothing
+
+\end{lstlisting}
+\subsection{xy2xys}
+${}$
+\begin{lstlisting}
+ for boundary points: convert XY coordinate into a 1Dparametric coordinate,
+ applied in mesh optimization, where movement of boundary points is
+ constrained on the boundary
+
+\end{lstlisting}
+\subsection{xys2xy}
+${}$
+\begin{lstlisting}
+ convert parametric 1D coordinate of boundary point back to cartesian XYc oordinate 
+
+\end{lstlisting}
+\section{grid/@Grid1}
+\subsection{Grid1}
+${}$
+\begin{lstlisting}
+ lump spatiotemporal data into a 1-dimensional grid
+
+\end{lstlisting}
+\subsection{binop}
+${}$
+\begin{lstlisting}
+ operate function fun on data val within the context of a grid cell
+ (for fitting grid cell values from sampled values)
+
+\end{lstlisting}
+\subsection{build\_index}
+${}$
+\begin{lstlisting}
+
+ compute the grid-cell index for samples sampled at points X1
+
+ name : name of the index field
+ X1 : coordinate of source points
+ R  : cut off radius (if not supplied ident to mesh width)
+
+\end{lstlisting}
+\subsection{fit}
+${}$
+\begin{lstlisting}
+ lump (fit) sampled values into the corresponding grid cell
+
+\end{lstlisting}
+\subsection{predict}
+${}$
+\begin{lstlisting}
+ interpolate from lumped data to specified location
+
+\end{lstlisting}
+\section{grid/@Grid2}
+\subsection{Grid2}
+${}$
+\begin{lstlisting}
+ lump spatiotemporal data into a 2-dimensional grid
+
+\end{lstlisting}
+\subsection{binop}
+${}$
+\begin{lstlisting}
+ operate function fun on data val within the context of a grid cell
+ (for fitting grid cell values from sampled values)
+
+\end{lstlisting}
+\subsection{build\_index}
+${}$
+\begin{lstlisting}
+
+ compute the grid-cell index for samples sampled at points X1
+ X1 : coordinate along first dimension
+ X2 : coordinate along second dimension
+
+
+\end{lstlisting}
+\subsection{plot}
+${}$
+\begin{lstlisting}
+
+\end{lstlisting}
+\subsection{predict}
+${}$
+\begin{lstlisting}
+ interpolate from lumped data to specified location
+
+\end{lstlisting}
+\section{grid/@Grid3}
+\subsection{Grid3}
+${}$
+\begin{lstlisting}
+ lump spatiotemporal data into a 3-dimensional grid
+
+\end{lstlisting}
+\subsection{build\_index}
+${}$
+\begin{lstlisting}
+ compute the grid-cell index for samples sampled at points X1
+ X1 : coordinate along first dimension
+ X2 : coordinate along second dimension
+ X3 : coordinate along third dimension
+
+\end{lstlisting}
+\section{mesh1d}
+\subsection{dxspace}
+${}$
+\begin{lstlisting}
+
+\end{lstlisting}
+\subsection{dxspace2}
+${}$
+\begin{lstlisting}
+
+\end{lstlisting}
+\subsection{dzmesh}
+${}$
+\begin{lstlisting}
+
+\end{lstlisting}
+\subsection{mesh1}
+${}$
+\begin{lstlisting}
+
+\end{lstlisting}
+\subsection{mesh1d}
+${}$
+\begin{lstlisting}
+
+\end{lstlisting}
+\subsection{nlogstep}
+${}$
+\begin{lstlisting}
+
+\end{lstlisting}
+\section{optimization}
+\subsection{improve\_smooth\_insert}
+${}$
+\begin{lstlisting}
+
+\end{lstlisting}
+\subsection{objective0\_angle1\_barycentric}
+${}$
+\begin{lstlisting}
+
+\end{lstlisting}
+\subsection{objective0\_angle2\_barycentric}
+${}$
+\begin{lstlisting}
+
+\end{lstlisting}
+\subsection{objective0\_angle2\_barycentric9}
+${}$
+\begin{lstlisting}
+
+\end{lstlisting}
+\subsection{objective0\_angle\_2\_cartesian}
+${}$
+\begin{lstlisting}
+
+\end{lstlisting}
+\subsection{objective0\_angle\_inf\_cartesian}
+${}$
+\begin{lstlisting}
+
+\end{lstlisting}
+\subsection{objective0\_barycentric9}
+${}$
+\begin{lstlisting}
+
+\end{lstlisting}
+\subsection{objective0\_pythagoras1\_barycentric9}
+${}$
+\begin{lstlisting}
+
+\end{lstlisting}
+\subsection{objective0\_pythagoras1\_cartesian}
+${}$
+\begin{lstlisting}
+
+\end{lstlisting}
+\subsection{objective0\_pythagoras2\_barycentric9}
+${}$
+\begin{lstlisting}
+
+\end{lstlisting}
+\subsection{objective0\_pythagoras2\_cartesian}
+${}$
+\begin{lstlisting}
+
+\end{lstlisting}
+\subsection{objective\_3\_angle}
+${}$
+\begin{lstlisting}
+
+\end{lstlisting}
+\subsection{objective\_A\_bnd}
+${}$
+\begin{lstlisting}
+
+\end{lstlisting}
+\subsection{objective\_P\_angle}
+${}$
+\begin{lstlisting}
+
+\end{lstlisting}
+\subsection{objective\_P\_angle\_scaled}
+${}$
+\begin{lstlisting}
+
+\end{lstlisting}
+\subsection{objective\_P\_angle\_scaled\_area}
+${}$
+\begin{lstlisting}
+
+\end{lstlisting}
+\subsection{objective\_P\_midpoint}
+${}$
+\begin{lstlisting}
+
+\end{lstlisting}
+\subsection{objective\_angle}
+${}$
+\begin{lstlisting}
+
+\end{lstlisting}
+\subsection{objective\_angle2\_barycentric}
+${}$
+\begin{lstlisting}
+
+\end{lstlisting}
+\subsection{objective\_angle\_p}
+${}$
+\begin{lstlisting}
+
+\end{lstlisting}
+\subsection{objective\_angle\_scaled\_area}
+${}$
+\begin{lstlisting}
+
+\end{lstlisting}
+\subsection{objective\_angle\_scaled\_circumference}
+${}$
+\begin{lstlisting}
+
+\end{lstlisting}
+\subsection{objective\_cosa}
+${}$
+\begin{lstlisting}
+
+\end{lstlisting}
+\subsection{objective\_cosa\_p}
+${}$
+\begin{lstlisting}
+
+\end{lstlisting}
+\subsection{objective\_cosa\_scaled\_side\_length}
+${}$
+\begin{lstlisting}
+
+\end{lstlisting}
+\subsection{objective\_distance\_edge\_centre}
+${}$
+\begin{lstlisting}
+
+\end{lstlisting}
+\subsection{objective\_distance\_edge\_centre\_perpendicular}
+${}$
+\begin{lstlisting}
+
+\end{lstlisting}
+\subsection{objective\_distance\_orthocentre\_excentre}
+${}$
+\begin{lstlisting}
+
+\end{lstlisting}
+\subsection{objective\_incentre\_excentre}
+${}$
+\begin{lstlisting}
+
+\end{lstlisting}
+\subsection{objective\_length\_min\_max}
+${}$
+\begin{lstlisting}
+
+\end{lstlisting}
+\subsection{objective\_length\_var}
+${}$
+\begin{lstlisting}
+
+\end{lstlisting}
+\subsection{objective\_thales}
+${}$
+\begin{lstlisting}
+
+\end{lstlisting}
+\subsection{objective\_thales\_difference}
+${}$
+\begin{lstlisting}
+
+\end{lstlisting}
+\subsection{test\_objective\_cosa\_p}
+${}$
+\begin{lstlisting}
+
+\end{lstlisting}
+\section{mesh}
+\begin{lstlisting}
+mesh generation, manipulation, analysis, refinement and optimization
+
+
+\end{lstlisting}
+\subsection{preload\_msh}
+${}$
+\begin{lstlisting}
+
+\end{lstlisting}
+\section{sparsemesh/@SparseMesh1}
+\subsection{SparseMesh1}
+${}$
+\begin{lstlisting}
+ lump time series of sampled spatial data in one dimension (projected)
+
+\end{lstlisting}
+\subsection{assign}
+${}$
+\begin{lstlisting}
+ assign (lump) data "v0" sampled at sample times/location to field "field"
+
+
+\end{lstlisting}
+\subsection{assignS}
+${}$
+\begin{lstlisting}
+ lump sequentially sampled data "v0" and assign to field "field"
+ 
+
+\end{lstlisting}
+\subsection{init}
+${}$
+\begin{lstlisting}
+ initialize, segment sampling locations/times into blocks the sampled
+ data is lumped to
+
+\end{lstlisting}
+\subsection{interp}
+${}$
+\begin{lstlisting}
+ interpolate data stored in field "field" to coordinates Xi
+ ingnore invalid data
+ TODO, check if convex
+
+\end{lstlisting}
+\subsection{interpS}
+${}$
+\begin{lstlisting}
+ interpolate data stored in field "field" to coordinates Xi,
+ do not ignore invalid data
+
+\end{lstlisting}
+\subsection{rmse\_interp}
+${}$
+\begin{lstlisting}
+ interpolation part of the error : 
+ e ~ 1/2*d^2v/dx^2 * dx^2 + higher order terms
+   ~ 1/2*d^2 v
+ the other part of the error is the sampling error (gaussian noise)
+ 
+ the mesh is optimal, when e_nois ~ e_interp
+
+
+\end{lstlisting}
+\section{sparsemesh/@SparseMesh2}
+\subsection{SparseMesh2}
+${}$
+\begin{lstlisting}
+ lump time series of sampled spatial data (track recordings) along two dimensions,
+ e.g 1 projected spatial dimension and one for time time
+ TODO : better blocks (all neighbours within mahalanobis distance)
+ TODO : do not use simple mean, but allow for least squares regression
+ TODO : precompute the least squares weights for accummarray
+
+\end{lstlisting}
+\subsection{assign}
+${}$
+\begin{lstlisting}
+ assign (lump) data "v0" sampled at sample times/location to field "field"
+
+\end{lstlisting}
+\subsection{assignS}
+${}$
+\begin{lstlisting}
+ lump sequentially sampled data "v0" and assign to field "field"
+
+\end{lstlisting}
+\subsection{init}
+${}$
+\begin{lstlisting}
+ initialize, segment sampling locations/times into blocks the sampled
+ data is lumped to
+
+\end{lstlisting}
+\subsection{interp}
+${}$
+\begin{lstlisting}
+ interpolate data stored in field "field" to coordinates Xi
+ ingnore data outside of the domain (convex interpolation)
+
+\end{lstlisting}
+\subsection{interpS}
+${}$
+\begin{lstlisting}
+ interpolate data stored in field "field" to coordinates Xi,
+ extrapolate beyond domain
+
+\end{lstlisting}
+\subsection{rmse\_interp}
+${}$
+\begin{lstlisting}
+ interpolation part of the error : 
+ e ~ 1/2*d^2v/dx^2 * dx^2 + higher order terms
+   ~ 1/2*d^2 v
+ the other part of the error is the sampling error (gaussian noise)
+ 
+ the mesh is optimal, when e_nois ~ e_interp
+
+ TODO this is e ~ f', not f''
+
+\end{lstlisting}
+\section{sparsemesh}
+\begin{lstlisting}
+lumping and interpolation of spatio-temporal data into a "mesh" that is spaced
+optimally for the local density of sample points
+
+allows for processing of large data sets with lower memory consumption and run time
+
+intended for ADCP data processing
+
+Overcomes the limitation of gridding, where some grid cells can have an insufficient
+number of samples
+
+
+\end{lstlisting}
+\subsection{SparseMesh}
+${}$
+\begin{lstlisting}
+ SparseMesh superclass
+
+\end{lstlisting}
+\section{test}
+\subsection{test\_derivative\_matrices\_curvilinear}
+${}$
+\begin{lstlisting}
+
+\end{lstlisting}
+\end{document}

@@ -1,4 +1,5 @@
 % Wed 23 May 16:08:05 CEST 2018
+%% snap two meshes that connect at their domain boundaries
 function [id_,jd_,obj] = snap(obj,obj2,dmax,pflag)
 	id_ = [];
 	jd_ = [];

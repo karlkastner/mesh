@@ -1,4 +1,6 @@
 % Wed 23 May 20:08:15 CEST 2018
+%
+%% flip left and right or top and down
 function obj = flip_dimension(obj,dim)
 	if (dim(1))
 		obj.X = flipud(obj.X);

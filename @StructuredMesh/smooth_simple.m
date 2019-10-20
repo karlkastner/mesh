@@ -1,5 +1,7 @@
 % Wed 23 May 14:09:46 CEST 2018
 % Sat 19 May 18:59:14 CEST 2018
+%%
+%% smooth the mesh coordinates
 % TODO invalid points for complex domains
 function obj = smooth_simple(obj,val,dim,n)
 	keepends = true;

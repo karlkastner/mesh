@@ -1,6 +1,6 @@
 % Mi 30. Sep 14:18:34 CEST 2015
 % Karl Kastner, Berlin
-
+%% check boundary conditions for stacked domains
 function [isinvalid, obj] = bc_isinvalid(obj,BC)
 	field_C = { 'north', 'east', 'south', 'west' };
 	isinvalid = false;

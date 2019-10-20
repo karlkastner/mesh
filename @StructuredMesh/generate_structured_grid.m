@@ -1,6 +1,6 @@
 % Mo 28. Sep 14:16:30 CEST 2015
 % Karl Kastner, Berlin
-
+%% generate a structured mesh consisting of several sub-meshes
 % note : the generated grid is not orthogonal
 % TODO, convert to shp point, grd
 % TODO, put elements, points and coordinates (mesh output)

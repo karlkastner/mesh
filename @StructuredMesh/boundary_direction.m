@@ -1,4 +1,5 @@
 % Thu 22 Nov 14:45:44 CET 2018
+%% return direction of boundary segment
 function [dx,dy,bnd,iscorner] = boundary_direction(obj)
 	order = 2;
 %	order = 1;

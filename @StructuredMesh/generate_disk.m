@@ -1,5 +1,6 @@
 % Thu 15 Mar 09:52:03 CET 2018
-
+%
+%% generate semicircular domain
 function obj = generate_disk(obj,R,Theta,n)
 	% TODO check range
 

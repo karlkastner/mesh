@@ -1,6 +1,6 @@
 % Do 1. Okt 12:32:16 CEST 2015
 % Karl Kastner, Berlin
-
+%% export mesh elements as shape file
 function [shp, obj] = export_shp(obj)
 	X = full(obj.X);
 	Y = full(obj.Y);

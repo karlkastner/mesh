@@ -1,2 +1,0 @@
-classdef SMesh < StructuredMesh
-end

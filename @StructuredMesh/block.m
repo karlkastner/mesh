@@ -1,6 +1,8 @@
 % Mi 30. Sep 09:44:10 CEST 2015
 % Karl Kastner, Berlin
 %
+%% stack multiple meshes to complex domain
+%
 % arg  1 2 3 4  5 6 7 8
 %      sides    connection
 %      n e s w  n e s w

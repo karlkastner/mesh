@@ -1,5 +1,5 @@
 % Mo 28. Sep 14:16:30 CEST 2015
-
+%% mesh a subdomain
 function [bc, obj] = grid_block(obj,bc)
 	% number of rows (eta)
 	if (isfield(bc,'bottom'))

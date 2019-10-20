@@ -1,6 +1,8 @@
 % Sun 20 May 13:14:00 CEST 2018
-% id : index of boundary point
-% jd : index of 
+%
+%% indices of boundary segments
+%% id : index of boundary point
+%% jd : index of 
 function [id,jd,obj] = boundary_indices(obj)
 	n = obj.n;
 	% corners are assigned to boundary 1

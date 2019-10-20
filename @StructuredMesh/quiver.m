@@ -1,4 +1,5 @@
 % Tue 19 Feb 11:49:15 CET 2019
+%% quiver plot of velocity
 function quiver(obj,u,v,varargin)
 	n = obj.n;
 	nu = size(u);

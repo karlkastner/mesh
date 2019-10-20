@@ -1,8 +1,0 @@
-% Thu 18 Jan 19:01:01 CET 2018
-% Karl Kastner, Berlin
-
-function [obj] = fit(obj,name,val,varargin);
-%	[obj.grid_n.val.U, err.U] = obj.grid_n.binop('i1',f,time(msk),T(msk),N(msk),Z(msk),adcp.ens.vel.cs(msk,1));
-	[obj.val.(name)] = obj.binop('i1',obj.fitfun,val,varargin{:});
-end
-

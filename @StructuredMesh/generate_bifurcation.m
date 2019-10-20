@@ -1,23 +1,23 @@
 % Sat 24 Feb 14:46:24 CET 2018
-
-% creates a bluff, which is required for delft3d meshes
-% TODO do not fix indices
-% TODO determine p individually
-
-% bank : bankline shapefile
-% nn : number of points across branches
-% ds: spacing along s
-% p : fraction of right side branch
-% level : generate hierarchical mesh,
-%	  grid points in each branch will be 2^n+1,
-%	  and sub meshes until level 1 will be generated
 %
-% for lower levels the connecting volumes remain narrow,
-% as the two volumes left and right of the division line are not scaled
-% -> post smoothing required
+%% creates a mesh for bifurcation with bluff, which is required for delft3d grids
+%% TODO do not fix indices
+%% TODO determine p individually
 %
-% nn: n=6; for idx=1:5; n(end+1)  = 2*(n(end)-3)+3, end
-% ns: n=18; for idx=1:5; n(end+1) = 2*(n(end)-2)+2, end (should be improved to 2*(n-1)+1
+%% bank : bankline shapefile
+%% nn : number of points across branches
+%% ds: spacing along s
+%% p : fraction of right side branch
+%% level : generate hierarchical mesh,
+%%	  grid points in each branch will be 2^n+1,
+%%	  and sub meshes until level 1 will be generated
+%%
+%% for lower levels the connecting volumes remain narrow,
+%% as the two volumes left and right of the division line are not scaled
+%% -> post smoothing required
+%%
+%% nn: n=6; for idx=1:5; n(end+1)  = 2*(n(end)-3)+3, end
+%% ns: n=18; for idx=1:5; n(end+1) = 2*(n(end)-2)+2, end (should be improved to 2*(n-1)+1
 function [smesh, obj] = generate_bifurcation(obj,bank,nn,ds,p,id_offset,level)
 %	p  = 1/3;
 %	jd = [3]

@@ -1,4 +1,7 @@
 % Wed 28 Nov 14:20:46 CET 2018
+%%
+%% smooth the mesh coordinates
+%%
 function smooth_sn(obj,opt)
 	if (nargin()<2)
 		opt = struct;

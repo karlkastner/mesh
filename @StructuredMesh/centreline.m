@@ -1,4 +1,5 @@
 % Wed 20 Feb 10:48:45 CET 2019
+%% domain (channel) centreline along chosen dimension
 function [xc,yc,l_,r_] = centreline(obj,dim)
 	X = obj.X;
 	Y = obj.Y;
@@ -6,7 +7,7 @@ function [xc,yc,l_,r_] = centreline(obj,dim)
 		X=X';
 		Y=Y';
 	end
-	n = size(X);
+	n  = size(X);
 	xc = zeros(n(1),0);
 	yc = zeros(n(1),0);
 	k  = zeros(size(X));

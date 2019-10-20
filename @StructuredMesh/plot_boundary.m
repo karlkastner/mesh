@@ -1,5 +1,5 @@
 % Sat 19 May 12:31:34 CEST 2018
-
+%% plot the mesh boundary
 % TODO mark depending on boundary condition
 function plot_boundary(obj,varargin)
 	[bnd,iscorner] = obj.boundary_chain();

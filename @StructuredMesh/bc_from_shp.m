@@ -1,7 +1,7 @@
 % 2015-09-29 17:41:56.150309175 +0200
 % Karl Kastner, Berlin
-
-function [BC, obj] = bc_from_shp(obj,shp,scale) %,nr,nc)
+%% read boundary condition from shape file
+function [BC, obj] = bc_from_shp(obj,shp,scale)
 
 	if (nargin() < 2)
 		scale = 1;

@@ -1,6 +1,7 @@
 % Do 1. Okt 12:15:19 CEST 2015
 % Karl Kastner, Berlin
-
+%
+%% element indices from grid
 % converts a structured grid into a mesh
 function obj = extract_elements(obj)
 	%M = struct();

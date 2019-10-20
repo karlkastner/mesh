@@ -1,4 +1,6 @@
 % Wed 23 May 13:06:03 CEST 2018
+%% mesh a 1D channel, where boundaries are given as polygon
+%% TODO, this should better use voronoi-tesselation (see centreline class)
 function [smesh_,Pc,width,len] = mesh_polygon(obj,shp,ds,nn)
 	Pc   = zeros(2,0);
 	area = [];

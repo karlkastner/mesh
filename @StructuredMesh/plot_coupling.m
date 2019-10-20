@@ -1,4 +1,5 @@
 % Fri 18 May 09:41:48 CEST 2018
+%% plot connected vertices, see vertex_connection_matrix.m
 function plot_coupling(obj,A)
 	X = obj.X;
 	Y = obj.Y;

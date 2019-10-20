@@ -1,4 +1,5 @@
 % Tue 27 Nov 16:47:43 CET 2018
+%% orthogonality of elements
 function cosa = orthogonality(obj)
 	eid = obj.edge;
 	n = obj.n;

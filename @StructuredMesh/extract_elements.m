@@ -3,7 +3,11 @@
 %
 %% element indices from grid
 % converts a structured grid into a mesh
-function obj = extract_elements(obj)
+function obj = extract_elements(obj,invalid_)
+	if (nargin()<2)
+		% TODO this does not work for NaN, then isvalid function has to be used
+		invalid_ = NaN;
+	end
 	%M = struct();
 	% point coordinates
 	X = obj.X;
@@ -19,10 +23,10 @@ function obj = extract_elements(obj)
 	for idx=1:n1-1
 	 for jdx=1:n2-1
 		% check that none of the elements is invalid
-		if (X(idx,jdx) ~= 0 && X(idx+1,jdx) ~= 0 ...
-		    && X(idx,jdx+1) ~= 0 && X(idx+1,jdx+1) ~= 0 ...
-		    && Y(idx,jdx) ~= 0 && Y(idx+1,jdx) ~= 0 ...
-		    && Y(idx,jdx+1) ~= 0 && Y(idx+1,jdx+1) ~= 0)
+		if (   X(idx,jdx)   ~= invalid_ && X(idx+1,jdx)   ~= invalid_ ...
+		    && X(idx,jdx+1) ~= invalid_ && X(idx+1,jdx+1) ~= invalid_ ...
+		    && Y(idx,jdx)   ~= invalid_ && Y(idx+1,jdx)   ~= invalid_ ...
+		    && Y(idx,jdx+1) ~= invalid_ && Y(idx+1,jdx+1) ~= invalid_)
 			% push back an element
 			n = n+1;
 			elem(n,:) = sub2ind([n1,n2],[idx idx+1 idx+1 idx],[jdx jdx   jdx+1 jdx+1]);

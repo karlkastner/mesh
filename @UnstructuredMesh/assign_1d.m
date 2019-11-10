@@ -2,7 +2,7 @@
 % Karl Kastner, Berlin
 %
 %% assign coordinatex (x0,y0) to containing element
-%
+%% TODO this can fail, if triangulation is not delaunay
 function [edx cflag nn obj] = assign_1d(obj,x0)
 	% allocate memory for each segment
 	nx            = length(x0);

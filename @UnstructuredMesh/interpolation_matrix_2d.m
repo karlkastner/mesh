@@ -1,7 +1,7 @@
 % Di 26. Jan 20:14:09 CET 2016
 % Karl Kastner, Berlin
 %
-%% linear interpolation matrix from mesh points to arbitrary coordinates P0,y0
+% linear interpolation matrix from mesh points to arbitrary coordinates P0,y0
 %
 % edx : index to containing triangles
 % TODO vandermonde setup can be parrellised
@@ -12,11 +12,12 @@
 % get the three nearest neighbour(s)
 % TODO, this could be a mesh function, though, if mesh is sufficiently hierarchic
 %jdx = knnsearch([obj.X,obj.Y],[P0,y0],'K',3);
-function [A fdx edx obj] = interpolation_matrix_2d(obj,P0,edx,order)
+function [A, fdx, edx, obj] = interpolation_matrix_2d(obj,P0,edx,order)
+	n0 = size(P0,1);
 	% TODO assign can directy return the interpolation coefficients C
 	% for unassigned points, zero will be added to the first element of the matrix
 	if (nargin() < 3 || isempty(edx))
-		edx = obj.assign_2d(P0);
+		[edx,pdx] = obj.assign_2d(P0);
 	end
 
 	if (nargin() < 4 || isempty(order))
@@ -39,11 +40,28 @@ function [A fdx edx obj] = interpolation_matrix_2d(obj,P0,edx,order)
 	C = Geometry.tobarycentric2( [eX(:,1),eY(:,1)], ...
 				     [eX(:,2),eY(:,2)], ...
 				     [eX(:,3),eY(:,3)], P0 );
+	
+
 
 	n_   = sum(fdx); 
-	buf1 = flat(ones(3,1)*(1:n_));
+	% element
+	nn   = (1:n0)';
+%buf1 = flat(ones(3,1)*(1:n_));
+	buf1 = flat(ones(3,1)*nn(fdx)');
+	% indices of element containing points
 	buf2 = reshape(elem.',[],1);
+	% interpolation weights for corner values
 	buf3 = flat(C);
-	A    = sparse(buf1,buf2,buf3,n_,obj.np);
+	% constant extrapolation
+	if (~isempty(fdx))
+	fdx  = find(~fdx);
+	buf1 = [buf1;fdx];
+	buf2 = [buf2;pdx(fdx)];
+	buf3 = [buf3;ones(length(fdx),1)];
+	end
+	%A(fdx,fdx)    = sparse(buf1,buf2,buf3,n_,obj.np);
+	A   = sparse(buf1,buf2,buf3,n0,obj.np);
+%		A(sub2ind([n0,obj.np],fdx,pdx(fdx))) = 1;
+%	end
 end % interpolation_matrix_2d
 

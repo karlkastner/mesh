@@ -6,7 +6,8 @@
 % generate_uniform_triangulation(n,L,x0)
 % 
 function obj = generate_uniform_triangulation(varargin)
-	[P, T] = triangulation_uniform(varargin{:});
+	[P, T] = mesh_2d_uniform(varargin{:});
+	%[P, T] = triangulation_uniform(varargin{:});
 	obj = UnstructuredMesh(P,T);
 	%obj.point = P;
 	%obj.elem  = T;

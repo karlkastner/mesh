@@ -20,7 +20,7 @@ function [val, fdx] = interp1_1d(obj,x0,y0,v0)
 	rhs = cvec(v0);
 
 	% first deriviative matrix
-	[D1s D1x D1y edx pdx] = obj.derivative_matrix_1d();
+	[D1s, D1x, D1y, edx, pdx] = obj.derivative_matrix_1d();
 
 	% only 1d part
 	A(:,~pdx)   = [];

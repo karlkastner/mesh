@@ -5,10 +5,17 @@
 %% TODO check overlap by computation of area
 function obj = check_dublicate_elements(obj)
 	elem = obj.elem;
-	[void, fdx] = unique(sort(elem,2),'rows');
-	if (length(fdx) ~= obj.nelem)
-		fdx_ = (1:obj.nelem)';
-		fdx_(fdx) = [];
+	s = sortrows(sort(elem,2));
+	fdx = find(sum(abs(diff(s)),2) == 0);
+	%[void, fdx]      = unique(sort(elem,2),'rows');
+	%if (length(fdx) ~= obj.nelem)
+	%	fdx_     = (1:obj.nelem)';
+	%	fdx_(fdx) = [];
+	if (~isempty(fdx))
+		fdx
+		s(fdx+(0:1),:)
+		hold on
+		plot(obj.X(s(fdx,:)),obj.Y(s(fdx,:)),'r.')
 		error('here');
 	end
 end

@@ -5,7 +5,7 @@
 %% (gmsh leaves sometimes spurious points in the msh file)
 %
 % QUADSAVE_TRUE
-function [ddx obj] = remove_isolated_vertices(obj)
+function [ddx, pdx, obj] = remove_isolated_vertices(obj)
 	np = size(obj.point,1);
 	id = false(np,1);
 	for jdx=2:size(obj.elem,2);
@@ -20,12 +20,19 @@ function [ddx obj] = remove_isolated_vertices(obj)
 	% find points not belonging to any element
 	id = ~id;
 	% remove these points
-	ddx = obj.remove_points(id);
+	[ddx, pdx] = obj.remove_points(id);
 	obj.edges_from_elements();
 	n = sum(id);
 	fprintf(1,'Removed %d isolated points\n',n);
-	if (nargout()<2)
-		clear ddx
-	end
+
+	% old to new indices
+	%nid      = (1:np)';
+	%nid(ddx) = 0;
+	%nid      = cumsum(nid>0);
+	%nid(ddx) = 0;
+%	nid = cumsum(ddx);
+%	if (nargout()<2)
+%		clear ddx
+%	end
 end % remove_isolated_triangles
 

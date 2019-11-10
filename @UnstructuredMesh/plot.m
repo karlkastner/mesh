@@ -35,6 +35,9 @@ function [ph, obj] = plot(obj,pval,opt)
 	if (~isfield(opt,'surface'))
 		opt.surface = true;
 	end
+	if (~isfield(opt,'elem_edgecolor'))
+		opt.elem_edgecolor = 'none';
+	end
 	if (~isfield(opt,'boundary'))
 		opt.boundary = false;
 	end
@@ -43,6 +46,9 @@ function [ph, obj] = plot(obj,pval,opt)
 	end
 	if (~isfield(opt,'edges'))
 		opt.edges = false;
+	end
+	if (~isfield(opt,'edgecolor'))
+		opt.edgecolor = 'k';
 	end
 	if (~isfield(opt,'edges_individual'))
 		opt.edges_individual = false;
@@ -56,7 +62,7 @@ function [ph, obj] = plot(obj,pval,opt)
 	if (~isfield(opt,'edgearg'))
 		opt.edgearg = {};
 	end
-	[elem3 fdx3] = obj.elemN(3);
+	[elem3, fdx3] = obj.elemN(3);
 	elem3 = double(elem3);
 
 	% plot elements
@@ -70,7 +76,7 @@ function [ph, obj] = plot(obj,pval,opt)
 	%		if (length(z) ~= obj.nelem)
 				% value given on vertices
 				ph = trisurf(elem3,x,y,z, ...
-					'Edgecolor','none', ...
+					'Edgecolor',opt.elem_edgecolor, ...
 					'Facecolor','interp', ...
 					opt.surfarg{:});
 			case {obj.nedge}
@@ -132,9 +138,6 @@ function [ph, obj] = plot(obj,pval,opt)
 
 	% edges
 	if (opt.edges)
-		if (~isfield(opt,'EdgeColor'))
-			opt.EdgeColor='k';
-		end
 
 		elem2 = obj.elemN(2);
 		if (~isempty(elem2))
@@ -150,7 +153,7 @@ function [ph, obj] = plot(obj,pval,opt)
 					'vertices',[x y z_], ... % z], ...
 					... 'FaceVertexCData',z, ...
 					'FaceColor','none', ...
-					'EdgeColor',opt.EdgeColor, ...
+					'EdgeColor',opt.edgecolor, ...
 				        opt.edgearg{:});
 		end
 		for idx=4:size(obj.elem,2)
@@ -201,12 +204,12 @@ function [ph, obj] = plot(obj,pval,opt)
 
 	% boundary
 	if (opt.boundary)
-		xx = x(edge(bnd,:));
+		xx      = x(edge(bnd,:));
 		xx(:,3) = NaN;
-		yy = y(edge(bnd,:));
+		yy      = y(edge(bnd,:));
 		yy(:,3) = NaN;
 		%plot(x(edge(bnd,:)'),y(edge(bnd,:)'),opt.boundary_color);
-		plot(flat(xx),flat(yy),opt.boundary_color);
+		plot(flat(xx.'),flat(yy.'),opt.boundary_color);
 	end
 
 	% points

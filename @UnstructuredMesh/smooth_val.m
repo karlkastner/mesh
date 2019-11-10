@@ -2,9 +2,10 @@
 % Karl Kastner, Berlin
 %	
 %% smooth values on the mesh
-function [val, A, obj] = smooth_val(obj,val,p,n,abstol)
-	if (nargin() < 2)
-		val = [];
+%% TODO allow for smooting boundary only along boundary
+function [val, A, obj] = smooth_val(obj,val,p,n,abstol,nobnd)
+	if (nargin() < 2 || isempty(val))
+		val = obj.Z;
 	end
 
 	if (nargin() < 3 || isempty(p))
@@ -19,13 +20,24 @@ function [val, A, obj] = smooth_val(obj,val,p,n,abstol)
 		abstol = 0;
 	end
 
+	if (nargin() < 6)
+		nobnd = falsel
+	end
+
 	if (p<0 || p > 1)
 		p = 1.0;
 		warning('p is bound by [0 1], setting to 1\n');
 	end
 
+
 	% get connectivity matrix
 	A = obj.vertex_to_vertex();
+	if (nobnd)
+		fdx = false(obj.np,1);
+		fdx(obj.edge(obj.bnd,:)) = true;
+		A(fdx,:) = 0;
+		A = A+diag(sparse(double(fdx)));
+	end
 
 	% number of neighbours
 	% TODO: first or second dimension?

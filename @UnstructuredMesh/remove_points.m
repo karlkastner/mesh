@@ -6,7 +6,7 @@
 % TODO do this with edges as well
 %
 % QUADSAVE_TRUE
-function [ddx obj] = remove_points(obj, dpoint)
+function [ddx, pdx obj] = remove_points(obj, dpoint)
 	if (islogical(dpoint))
 		dpoint = find(dpoint);
 	else
@@ -14,14 +14,18 @@ function [ddx obj] = remove_points(obj, dpoint)
 		dpoint = unique(dpoint);
 	end
 	np = obj.np;
+
 	% number of points after removal
 	np_ = obj.np - length(dpoint);
+
 	% mark points for removal
 	pdx         = ones(np,1);
 	pdx(dpoint) = 0;
+
 	% new point index
 	pdx         = cumsum(pdx);
 	pdx(dpoint) = 0;
+
 	% remove points
 	obj.point(dpoint,:) = [];
 
@@ -31,7 +35,7 @@ function [ddx obj] = remove_points(obj, dpoint)
 	end
 
 	% reassign the new point indices
-	fdx  = (obj.elem > 0);
+	fdx           = (obj.elem > 0);
 	obj.elem(fdx) = pdx(obj.elem(fdx));
 
 	% remove elements that reference to removed points

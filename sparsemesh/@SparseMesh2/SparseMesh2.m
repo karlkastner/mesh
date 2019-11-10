@@ -27,7 +27,8 @@ classdef SparseMesh2 < SparseMesh
 			obj.S = [1,1];
 			for idx=1:2:length(varargin)-1
 				obj.(varargin{idx}) = varargin{idx+1};
-		end
+			end % for idx
+		end % constructor
 
 		function meshplot(obj,field,varargin)
 			%trimesh(obj.T.ConnectivityList,obj.T.Points(:,1),obj.T.Points(:,2),[],obj.val.(field));
@@ -40,7 +41,7 @@ classdef SparseMesh2 < SparseMesh
 				obj.T.Points(:,1),obj.T.Points(:,2),[],v, ...
 				'edgecolor','none', varargin{:});
 			view(0,90);
-		end
+		end % meshplot
 
 	end % methods
 end % class SparseMesh2

@@ -16,7 +16,7 @@ breaklines=true
 \setlength{\cftsubsecnumwidth}{3.5em}
 
 \title{Manual for Package:
-mesh\protect\\Revision 1:3M
+mesh\protect\\Revision 1:6M
 }
 \author{Karl K\"astner}
 %\date{}
@@ -411,6 +411,7 @@ ${}$
 ${}$
 \begin{lstlisting}
  assign coordinatex (x0,y0) to containing element
+ TODO this can fail, if triangulation is not delaunay
 
 \end{lstlisting}
 \subsection{assign\_2d}
@@ -472,6 +473,18 @@ ${}$
  TODO check overlap by computation of area
 
 \end{lstlisting}
+\subsection{check\_edge\_intersection}
+${}$
+\begin{lstlisting}
+
+\end{lstlisting}
+\subsection{clip}
+${}$
+\begin{lstlisting}
+ clip mesh to polygonal domain 
+ TODO only works for triangles
+
+\end{lstlisting}
 \subsection{compute\_elem2elem}
 ${}$
 \begin{lstlisting}
@@ -497,22 +510,10 @@ ${}$
  copy constructor
 
 \end{lstlisting}
-\subsection{crop}
-${}$
-\begin{lstlisting}
- crop domain 
-
-\end{lstlisting}
 \subsection{cross\_section}
 ${}$
 \begin{lstlisting}
  get cross-sections for 1D elements
-
-\end{lstlisting}
-\subsection{cut}
-${}$
-\begin{lstlisting}
- crop mesh to polygonal region
 
 \end{lstlisting}
 \subsection{delete\_element}
@@ -693,6 +694,7 @@ ${}$
 \begin{lstlisting}
  recursively flip edges, i.e ABC+BCD -> ABD+ADC,
  when new edge (diagonal) is shorter
+ TODO this is buggy, it cannot be always swapped, only if abcd is convex!
 
 \end{lstlisting}
 \subsection{flip\_quality}
@@ -990,7 +992,6 @@ ${}$
 \subsection{interpolation\_matrix\_2d}
 ${}$
 \begin{lstlisting}
- linear interpolation matrix from mesh points to arbitrary coordinates P0,y0
 
 \end{lstlisting}
 \subsection{interpolation\_matrix\_3d}
@@ -1066,11 +1067,6 @@ ${}$
 \begin{lstlisting}
  mesh junctions of a channel network
 		hold on
-
-\end{lstlisting}
-\subsection{n\_vertices\_1d}
-${}$
-\begin{lstlisting}
 
 \end{lstlisting}
 \subsection{nearest\_boundary}
@@ -1285,6 +1281,11 @@ ${}$
  scatterplot of data on mesh
 
 \end{lstlisting}
+\subsection{section}
+${}$
+\begin{lstlisting}
+
+\end{lstlisting}
 \subsection{segment}
 ${}$
 \begin{lstlisting}
@@ -1309,6 +1310,7 @@ ${}$
 ${}$
 \begin{lstlisting}
  smooth values on the mesh
+ TODO allow for smooting boundary only along boundary
 
 \end{lstlisting}
 \subsection{smoothness}
@@ -1422,6 +1424,11 @@ ${}$
 ${}$
 \begin{lstlisting}
  connectivity matrix between vertices
+
+\end{lstlisting}
+\subsection{vertices\_1d}
+${}$
+\begin{lstlisting}
 
 \end{lstlisting}
 \subsection{weighed\_laplacian\_smoothing}
@@ -1559,6 +1566,17 @@ ${}$
 
 \end{lstlisting}
 \subsection{nlogstep}
+${}$
+\begin{lstlisting}
+
+\end{lstlisting}
+\section{mesh}
+\begin{lstlisting}
+mesh generation, manipulation, analysis, refinement and optimization
+
+
+\end{lstlisting}
+\subsection{nxfun}
 ${}$
 \begin{lstlisting}
 
@@ -1878,6 +1896,11 @@ ${}$
 
 \end{lstlisting}
 \section{test}
+\subsection{test\_MMesh\_segment}
+${}$
+\begin{lstlisting}
+
+\end{lstlisting}
 \subsection{test\_derivative\_matrices\_curvilinear}
 ${}$
 \begin{lstlisting}
@@ -1887,6 +1910,11 @@ ${}$
 \begin{lstlisting}
 mesh generation, manipulation, analysis, refinement and optimization
 
+
+\end{lstlisting}
+\subsection{test\_nxfun}
+${}$
+\begin{lstlisting}
 
 \end{lstlisting}
 \subsection{trimesh\_fast}

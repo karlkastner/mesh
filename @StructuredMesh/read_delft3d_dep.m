@@ -16,17 +16,24 @@ function dep = read_deltares_dep(obj,name)
 
 	% virtual depth to bed level
 	dep = -dep;
-	
-	if (prod(obj.n+1) == length(dep))
+
+	switch (length(dep))
+	case {prod(obj.n+1)}
 		n = obj.n;
 		Z = reshape(dep,[n(2),n(1)]+1)';
 		% remove buffer
 		Z = Z(2:end-1,2:end-1);
 		% element to point
 		obj.Z = obj.interp_elem2point(Z);
-
+	case {prod(obj.n+2)}
+		n = obj.n;
+		Z = reshape(dep,[n(2),n(1)]+2)';
+		% remove buffer
+		Z = Z(2:end-2,2:end-2);
+		% element to point
+		obj.Z =Z; % obj.interp_elem2point(Z);
 		%obj.Z = reshape(Z,obj.n);
-	else
+	otherwise
 		warning('input data dimension does not fit grid');
 	end
 end

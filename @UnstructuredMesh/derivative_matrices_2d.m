@@ -4,7 +4,7 @@
 %% first order first derivative discretisation matrix on the mesh
 %
 % TODO works only for triangles
-function [Dx, Dy, obj] = derivative_matrix_2d(obj)
+function [Dx, Dy, obj] = derivative_matrices_2d(obj)
 	% fetch
 	elem = obj.elem;
 	nelem = size(elem,1);
@@ -30,5 +30,8 @@ function [Dx, Dy, obj] = derivative_matrix_2d(obj)
 
 	Dx = sparse(buf1,buf2,Dx);
 	Dy = sparse(buf1,buf2,Dy);
-end % derivative_matrix_2d
+
+	obj.D.x = Dx;
+	obj.D.y = Dy;
+end % derivative_matrices_2d
 

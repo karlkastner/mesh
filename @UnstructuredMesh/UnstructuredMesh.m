@@ -16,7 +16,7 @@
 %
 %  You should have received a copy of the GNU General Public License
 %  along with this program.  If not, see <https://www.gnu.org/licenses/>.
-classdef UnstructuredMesh < handle
+classdef UnstructuredMesh < Mesh
     properties (Constant)
 	left  = [3 1 2];
 	right = [2 3 1];
@@ -63,6 +63,9 @@ classdef UnstructuredMesh < handle
 	% roughness type: {'chezy', 'manning','cd'}
 	rghtype = 'chezy';
 	%roughness_str = 'roughness_chezy.xyz';
+
+	int1 = @int_1d_gauss_5;
+	int2 = @int_2d_gauss_6;
     end % properties
     methods (Static)
 	% this should be a constructor, but matlab allows only 1 constuctor

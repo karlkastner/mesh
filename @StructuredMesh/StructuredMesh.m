@@ -17,7 +17,7 @@
 %
 %  You should have received a copy of the GNU General Public License
 %  along with this program.  If not, see <https://www.gnu.org/licenses/>.
-classdef StructuredMesh < handle
+classdef StructuredMesh < Mesh
 	properties
 		X
 		Y
@@ -42,13 +42,13 @@ classdef StructuredMesh < handle
 		N_
 
 
-		% derivative matrices
-		Dx_
-		Dy_
-		D2x_
-		Dxy_
-		D2y_
-		L_
+%		Dx_
+%		Dy_
+%		D2x_
+%		Dxy_
+%		D2y_
+%		D2
+%		L_
 
 		missing_value = 0;
 		n_chunk = 5;
@@ -77,14 +77,16 @@ classdef StructuredMesh < handle
 			end
 		end
 
+		% number of points for each dimensions
 		function n = n(obj)
 			n = size(obj.X);
 		end
-	
-		function nn = nn(obj)
+
+		% number of point
+		function np = np(obj)
 			nn = numel(obj.X);
 		end
-
+	
 		function [id, jd, ij, obj] = nearest_vertex(obj,xy0)
 			ij = knnsearch([flat(obj.X),flat(obj.Y)],xy0);
 			[id,jd] = ind2sub(obj.n,ij);
@@ -132,8 +134,8 @@ classdef StructuredMesh < handle
 		end
 
 		function id = column(obj,k)
-			n = obj.n;
-			id = (1:n(1))' + (k-1)*n(1);
+			n   = obj.n;
+			id  = (1:n(1))' + (k-1)*n(1);
 		end
 
 		function id = row(obj,k)
@@ -142,8 +144,17 @@ classdef StructuredMesh < handle
 		end
 	
 		function id = id(obj)
-			id = (1:prod(obj.n))';
+			id = reshape((1:prod(obj.n))',obj.n);
 		end
+		function bid = bid(obj)
+			n = obj.n;
+			bid = [  (1:n(1))';
+                                 n(1)*(n(2)-1)+(1:n(1))';
+				 ((n(1)+1):n(1):((n(2)-2)*n(1)+1))';
+				 (2*n(1):n(1):(n(2)-1)*n(1))';
+				];
+		end
+
 		function valid = valid(obj)
 			% buffer
 			valid = false(obj.n+2);
@@ -309,6 +320,7 @@ classdef StructuredMesh < handle
 		[S,N] = obj.S;
 	end
 
+		% TODO Ds Dn
 		function [dx_dS, dy_dS, dx_dN, dy_dN] = xydir(obj)
 			n = obj.n;
 			Ds = spdiags(0.5*ones(n(1),1)*[-1,0,1],-1:1,n(1),n(1));
@@ -328,50 +340,14 @@ classdef StructuredMesh < handle
 
 		function [Dx, Dy, L] = derivative_matrices(obj)
 			[Dx, Dy, D2x, Dxy, D2y, L] = derivative_matrix_curvilinear_2(obj.X,obj.Y);
-			obj.Dx_  = Dx;
-			obj.Dy_  = Dy;
-			obj.L_   = L;
-			obj.D2x_ = D2x;
-			obj.Dxy_ = Dxy;
-			obj.D2y_ = D2y;
+			obj.D.x  = Dx; % Dy
+			obj.D.y  = Dy; % Dx
+			obj.D.xx = D2y;
+			obj.D.xy = Dxy;
+			obj.D.yy = D2x;
+			obj.D.L  = L;
 		end
 
-		function Dx = Dx(obj)
-			if (isempty(obj.Dx_))
-				obj.derivative_matrices();
-			end
-			Dx = obj.Dx_;
-		end
-		function Dy = Dy(obj)
-			if (isempty(obj.Dy_))
-				obj.derivative_matrices();
-			end
-			Dy = obj.Dy_;
-		end
-		function D2x = D2x(obj)
-			if (isempty(obj.D2x_))
-				obj.derivative_matrices();
-			end
-			D2x = obj.D2x_;
-		end
-		function Dxy = Dxy(obj)
-			if (isempty(obj.Dxy_))
-				obj.derivative_matrices();
-			end
-			Dxy = obj.Dxy_;
-		end
-		function D2y = D2y(obj)
-			if (isempty(obj.D2y_))
-				obj.derivative_matrices();
-			end
-			D2y = obj.D2y_;
-		end
-		function L = L(obj)
-			if (isempty(obj.L_))
-				obj.derivative_matrices();
-			end
-			L = obj.L_;
-		end
 
 		% rotate velocities from euclidean xy to mesh SN coordinates
 		function [df_dS, df_dN] = xy2sn(obj, df_dx, df_dy)

@@ -4,7 +4,7 @@
 %% interpolation wiht Tikhonov regularisation in 2D
 %
 function [fi, res, cflag, mse, mse_fi] = interp_tikhonov_2d(obj, ...
-					P0, f0, lambda, w, bc, streamwiseflag)
+					P0, f0, lambda, w, bc, streamwiseflag, varargin{:})
 
 	if (nargin() < 5)
 		w = [];
@@ -21,10 +21,12 @@ function [fi, res, cflag, mse, mse_fi] = interp_tikhonov_2d(obj, ...
 	% set up of Tikhonov matrix for all elements
 
 	if (~streamwiseflag)
-		[Dx, Dy] = obj.derivative_matrix_2d();
+		%[Dx, Dy] = obj.derivative_matrix_2d();
+		Dx = obj.Dx;
+		Dy = obj.Dy;
 	else
 		% streamwise: (dz/ds = 0)
-		[Ds, Dn] = obj.streamwise_derivative_matrix();
+		[Ds, Dn] = obj.streamwise_derivative_matrix(varargin);
 		Dx=Ds;
 		Dy=Dn;
 	end

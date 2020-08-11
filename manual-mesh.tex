@@ -16,7 +16,7 @@ breaklines=true
 \setlength{\cftsubsecnumwidth}{3.5em}
 
 \title{Manual for Package:
-mesh\protect\\Revision 1:6M
+mesh\protect\\Revision 1:7M
 }
 \author{Karl K\"astner}
 %\date{}
@@ -31,6 +31,20 @@ mesh\protect\\Revision 1:6M
 % abstract
 
 
+\section{@Mesh}
+\subsection{Mesh}
+${}$
+\begin{lstlisting}
+
+\end{lstlisting}
+\subsection{match\_boundary\_condition}
+${}$
+\begin{lstlisting}
+ match user specified boundary conditions (as line) with 
+ boundary of discretized computational domain
+ p*phi + (1-p)*d/db phi = rhs
+
+\end{lstlisting}
 \section{@StructuredMesh}
 \subsection{StructuredMesh}
 ${}$
@@ -205,6 +219,12 @@ ${}$
 ${}$
 \begin{lstlisting}
  generate semicircular domain
+ R1 : inner diameter
+ R2 : outer diameter
+ Theta(1) : start angle
+ Theta(2) : end angle
+ n(1) : along channel number of points
+ n(2) : across channel number of points
 
 \end{lstlisting}
 \subsection{generate\_from\_centreline}
@@ -212,6 +232,11 @@ ${}$
 \begin{lstlisting}
  generate a mesh from a given centreline
  TODO : avoid crossing of inner bed points in sharp bends
+
+\end{lstlisting}
+\subsection{generate\_meander\_bend}
+${}$
+\begin{lstlisting}
 
 \end{lstlisting}
 \subsection{generate\_rectangle}
@@ -224,6 +249,11 @@ ${}$
 ${}$
 \begin{lstlisting}
  generate a structured mesh consisting of several sub-meshes
+
+\end{lstlisting}
+\subsection{generate\_tidal\_funnel}
+${}$
+\begin{lstlisting}
 
 \end{lstlisting}
 \subsection{grid\_block}
@@ -362,7 +392,7 @@ ${}$
  compute mesh statistics
 
 \end{lstlisting}
-\subsection{to\_unstructured\_mesh}
+\subsection{to\_UnstructuredMesh}
 ${}$
 \begin{lstlisting}
  convert to unstructured mesh
@@ -407,6 +437,41 @@ ${}$
  interior angles of each element
 
 \end{lstlisting}
+\subsection{apply\_boundary\_condition}
+${}$
+\begin{lstlisting}
+
+\end{lstlisting}
+\subsection{apply\_boundary\_condition\_hermite}
+${}$
+\begin{lstlisting}
+
+\end{lstlisting}
+\subsection{assemble\_2d\_dphi\_dphi\_hermite}
+${}$
+\begin{lstlisting}
+
+\end{lstlisting}
+\subsection{assemble\_2d\_dphi\_dphi\_lagrange}
+${}$
+\begin{lstlisting}
+
+\end{lstlisting}
+\subsection{assemble\_2d\_dphi\_dphi\_morley}
+${}$
+\begin{lstlisting}
+
+\end{lstlisting}
+\subsection{assemble\_2d\_dphidn\_phi\_hermite}
+${}$
+\begin{lstlisting}
+
+\end{lstlisting}
+\subsection{assemble\_2d\_dphidn\_phi\_lagrange}
+${}$
+\begin{lstlisting}
+
+\end{lstlisting}
 \subsection{assign\_1d}
 ${}$
 \begin{lstlisting}
@@ -424,6 +489,11 @@ ${}$
 ${}$
 \begin{lstlisting}
  assign coordinatex (P0,y0) to containing element
+
+\end{lstlisting}
+\subsection{associate\_boundary}
+${}$
+\begin{lstlisting}
 
 \end{lstlisting}
 \subsection{bnd\_1d}
@@ -522,13 +592,18 @@ ${}$
  delete an element
 
 \end{lstlisting}
-\subsection{derivative\_matrix\_1d}
+\subsection{derivative\_matrices}
+${}$
+\begin{lstlisting}
+
+\end{lstlisting}
+\subsection{derivative\_matrices\_1d}
 ${}$
 \begin{lstlisting}
  first order first derivative discretisation matrix on the 1d mesh
 
 \end{lstlisting}
-\subsection{derivative\_matrix\_2d}
+\subsection{derivative\_matrices\_2d}
 ${}$
 \begin{lstlisting}
  first order first derivative discretisation matrix on the mesh
@@ -538,6 +613,11 @@ ${}$
 ${}$
 \begin{lstlisting}
  second order derivative matrix on a triangulation
+
+\end{lstlisting}
+\subsection{derivative\_matrix\_2d\_hermite}
+${}$
+\begin{lstlisting}
 
 \end{lstlisting}
 \subsection{derivative\_matrix\_3d}
@@ -561,6 +641,11 @@ ${}$
  dual mesh formed by the centre of cicumference
  the dual mesh consists not only of triangles
  TODO rename in generate dual mesh
+
+\end{lstlisting}
+\subsection{edge\_direction}
+${}$
+\begin{lstlisting}
 
 \end{lstlisting}
 \subsection{edge\_length}
@@ -1165,6 +1250,11 @@ ${}$
  quadrilaterals to triangles
 
 \end{lstlisting}
+\subsection{quiver}
+${}$
+\begin{lstlisting}
+
+\end{lstlisting}
 \subsection{raster\_boundary}
 ${}$
 \begin{lstlisting}
@@ -1449,6 +1539,27 @@ ${}$
 ${}$
 \begin{lstlisting}
  convert parametric 1D coordinate of boundary point back to cartesian XYc oordinate 
+
+\end{lstlisting}
+\section{mesh}
+\begin{lstlisting}
+mesh generation, manipulation, analysis, refinement and optimization
+
+
+\end{lstlisting}
+\subsection{add\_to\_rhs}
+${}$
+\begin{lstlisting}
+
+\end{lstlisting}
+\subsection{append2buffer\_asym}
+${}$
+\begin{lstlisting}
+
+\end{lstlisting}
+\subsection{append2buffer\_dphi\_dphi}
+${}$
+\begin{lstlisting}
 
 \end{lstlisting}
 \section{grid/@Grid1}
@@ -1901,7 +2012,7 @@ ${}$
 \begin{lstlisting}
 
 \end{lstlisting}
-\subsection{test\_derivative\_matrices\_curvilinear}
+\subsection{test\_derivative\_matrix\_curvilinear\_2}
 ${}$
 \begin{lstlisting}
 
@@ -1913,6 +2024,11 @@ mesh generation, manipulation, analysis, refinement and optimization
 
 \end{lstlisting}
 \subsection{test\_nxfun}
+${}$
+\begin{lstlisting}
+
+\end{lstlisting}
+\subsection{tidal\_funnel\_idealized}
 ${}$
 \begin{lstlisting}
 

@@ -13,7 +13,7 @@ function [Dxx, Dxy, Dyy, Dx, Dy] = derivative_matrix_2d_2(obj)
 		for jdx=1:3
 			% for each corner
 			% add a rown enforcing equality with known values
-			A(idx,:) =
+			% TODO A(idx,:) =
 		end % for jdx
 	end % for idx
 
@@ -24,11 +24,11 @@ function [Dxx, Dxy, Dyy, Dx, Dy] = derivative_matrix_2d_2(obj)
 			% for each of the two adjoint elements
 			for jdx=1:2
 				% add a row enforcing identical values at the edge-midpoint
-				A(idx+np,:) =
+				% TODO A(idx+np,:) =
 			end
 		else
 			% mirror values and coordinates at edges (ghost elements, points and values)
-			A(idx+np,:) =
+			% TODO A(idx+np,:) =
 		end
 	end %f or idx
 	
@@ -37,22 +37,22 @@ function [Dxx, Dxy, Dyy, Dx, Dy] = derivative_matrix_2d_2(obj)
 	%val_ = A \ val;
 	
 	% set up the vandermonde matrix for the derivative for the six-point triangles
-	Ad = 
+% TODO	Ad = 
 
 	% coefficients of the derivatives
-	c = A \ Ad;
+% TODO	c = A \ Ad;
 
 	% set coefficients
-	buf      = zeros(,2) 
-	buf(:,1) =
-	buf(:,2) =
+%	buf      = zeros(,2) 
+%	buf(:,1) =
+%	buf(:,2) =
 	
-	Dxx = sparse(buf(:,1),buf(:,2),
-	Dxy = sparse(buf(:,1),buf(:,2),
-	Dyy = sparse(buf(:,1),buf(:,2),
+%	Dxx = sparse(buf(:,1),buf(:,2),
+%	Dxy = sparse(buf(:,1),buf(:,2),
+%	Dyy = sparse(buf(:,1),buf(:,2),
 	if (nargout()>3)
-		Dx = sparse(buf(:,1),buf(:,2),
-		Dy = sparse(buf(:,1),buf(:,2),
+%		Dx = sparse(buf(:,1),buf(:,2),
+%		Dy = sparse(buf(:,1),buf(:,2),
 	end
 end
 

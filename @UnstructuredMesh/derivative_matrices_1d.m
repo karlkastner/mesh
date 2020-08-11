@@ -3,9 +3,9 @@
 %
 %% first order first derivative discretisation matrix on the 1d mesh
 %
-function [D d edx pdx] = derivative_matrix_1d(obj)
+function [D, d, edx, pdx] = derivative_matrix_1d(obj)
 	% get 1d elements
-	[elem2 edx] = obj.elemN(2);
+	[elem2, edx] = obj.elemN(2);
 	pdx = false(obj.np,1);
 	pdx(elem2(:)) = true;
 
@@ -24,6 +24,7 @@ function [D d edx pdx] = derivative_matrix_1d(obj)
 	d.S  = hypot(d.X,d.Y);
 
 	elem2 = double(elem2);
+
 	% simple difference matrix
 	ne = size(edx,1);
 	bufd  = [edx,elem2(:,1), -ones(ne,1); 
@@ -42,6 +43,8 @@ function [D d edx pdx] = derivative_matrix_1d(obj)
 	D.s = sparse(bufs(:,1),bufs(:,2),bufs(:,3),obj.nelem,obj.np);
 	D.x = sparse(bufx(:,1),bufx(:,2),bufx(:,3),obj.nelem,obj.np);
 	D.y = sparse(bufy(:,1),bufy(:,2),bufy(:,3),obj.nelem,obj.np);
+
+	obj.D = D;
 
 	% TODO, this blows up if dx is 0!
 %	bufx = [elem2, 1./dX;

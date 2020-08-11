@@ -18,10 +18,12 @@ function obj = plot(obj,val,opt)
 		val = squeeze(val);
 		if (isvector(val))
 			switch (length(val))
-			case {obj.n}
+			case {prod(obj.n)}
 				val = reshape(val,obj.n);
-			otherwise
+			case {prod(obj.n-1)}
 				val = reshape(val,obj.n-1);
+			otherwise
+				error('here');
 			end
 		end
 
@@ -32,8 +34,9 @@ function obj = plot(obj,val,opt)
 		switch (length(val))
 		case {size(obj.elem,1)}
 			imethod = 'flat';
-		case {prod(size(obj.X))}
+		case {numel(obj.X)}
 			imethod = 'interp';
+			v(:,3) = val;
 		otherwise
 			error('here')
 		end
@@ -43,6 +46,7 @@ function obj = plot(obj,val,opt)
 %		pause
 		%val = val-min(val(:));
 		%val = val/max(val(:));
+%'honk'
 		patch(  'faces', obj.elem, ...
 			'vertices', v, ...
 			'CData', val, ...
@@ -50,6 +54,7 @@ function obj = plot(obj,val,opt)
 			... %'FaceColor', 'interp', ...
 			'FaceColor', imethod, ...
 			'edgecolor', 'none');
+%pause
 %		else
 %		end
 

@@ -27,8 +27,8 @@ function orthogonalize(obj,opt)
 	Y = obj.Y;
 
 	% edge point coordinates
-	xy1 = [X(eid(:,1),Y(eid(:,1))];
-	xy2 = [X(eid(:,2),Y(eid(:,2))];
+	xy1 = [X(eid(:,1)),Y(eid(:,1))];
+	xy2 = [X(eid(:,2)),Y(eid(:,2))];
 %	xy1 = [flat(X(:,1:end-1)),flat(Y(:,1:end-1));
 %	       NaN*flat(X(1:end-1,:)'),flat(Y(1:end-1,:)')];
 %	xy2 = [flat(X(:,2:end)),flat(Y(:,2:end));

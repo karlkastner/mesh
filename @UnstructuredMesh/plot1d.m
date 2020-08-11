@@ -18,18 +18,20 @@ function plot1d(obj,C)
 	dX = dX./dS;
 	dY = dY./dS;
 
-	ne = size(eX,1);
+	% ne = size(eX,1);
 
 	method = 0;
 	switch (method)
+	case {0}
 		% rectangular elements, no smooth transition between elements
-		pX = [eX(:,1) + 0.5*dY.*eW(:,1), eX(:,1) - 0.5*dY.*eW(:,1) ...
+		pX = [eX(:,1) + 0.5*dY.*eW(:,1), eX(:,1) - 0.5*dY.*eW(:,1), ...
 		      eX(:,2) - 0.5*dY.*eW(:,2), eX(:,2) + 0.5*dY.*eW(:,2)];
-		pY = [eY(:,1) - 0.5*dX.*eW(:,1), eY(:,1) + 0.5*dX.*eW(:,1) ...
+		pY = [eY(:,1) - 0.5*dX.*eW(:,1), eY(:,1) + 0.5*dX.*eW(:,1), ...
 		      eY(:,2) + 0.5*dX.*eW(:,2), eY(:,2) - 0.5*dX.*eW(:,2)];
 		C = mean(eC,2);
 		patch(pX',pY',C');
 	case {1}
+		% TODO
 	end
 end
 

@@ -10,10 +10,19 @@ function obj = plot(obj,val,opt)
 	if (~isfield(opt,'boundary'))
 		opt.boundary = false;
 	end
+	if (~isfield(opt,'xlabel'))
+		opt.xlabel = 'x';
+	end
+	if (~isfield(opt,'ylabel'))
+		opt.ylabel = 'y';
+	end
 
 	v  = full([flat(obj.X),flat(obj.Y)]);
 	if (nargin()<2||isempty(val))
-		patch('faces',obj.elem,'vertices',v,'facecolor','none','edgecolor',opt.edgecolor);
+		patch('faces',obj.elem,		...
+			'vertices',v, ...
+			'facecolor','none', ...
+			'edgecolor',opt.edgecolor);
 	else
 		val = squeeze(val);
 		if (isvector(val))
@@ -68,8 +77,8 @@ function obj = plot(obj,val,opt)
 				text(obj.X(1,idx),obj.Y(1,idx),num2str(idx));
 			end	
 		end
-	xlabel('x')
-	ylabel('y');
+	xlabel(opt.xlabel)
+	ylabel(opt.ylabel);
 	n = size(obj.X);
 %	n =[2,2;
  %           2,n(2)-1;

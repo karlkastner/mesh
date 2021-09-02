@@ -41,21 +41,13 @@ classdef StructuredMesh < Mesh
 		S_
 		N_
 
-
-%		Dx_
-%		Dy_
-%		D2x_
-%		Dxy_
-%		D2y_
-%		D2
-%		L_
-
-		missing_value = 0;
+		missing_value = 99999;
 		n_chunk = 5;
 		maxit  = 15;
 		abstol = 1e-7;
 
 		dual_mesh_;
+		bc;
 	end % properties
 	methods (Static)
 		smesh = compose_domain(folder,name_C,ddb_str,ds_max);

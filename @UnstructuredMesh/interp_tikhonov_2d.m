@@ -4,7 +4,7 @@
 %% interpolation wiht Tikhonov regularisation in 2D
 %
 function [fi, res, cflag, mse, mse_fi] = interp_tikhonov_2d(obj, ...
-					P0, f0, lambda, w, bc, streamwiseflag, varargin{:})
+					P0, f0, lambda, w, bc, streamwiseflag, varargin)
 
 	if (nargin() < 5)
 		w = [];

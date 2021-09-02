@@ -5,6 +5,7 @@
 %
 % at the inhomogeneous boundaries: int du_dn v != 0
 function A  = apply_boundary_condition_hermite(obj,A,xb,yb,p,val)
+
 end % apply_boundary_condition_hermite
 
 function f
@@ -32,5 +33,5 @@ function f
 				A(dxid,dyid) = t(2);
 				rhs(dxid)    = 0;
 			end % kdx
-		end % jdx
+	%	end % jdx
 end

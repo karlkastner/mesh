@@ -55,7 +55,7 @@ function A = assemble_dphidphi_morley(mesh)
 		% test function coefficients (quadratic)
 		% A*c = rhs
 		A  = [    vander_2d(xp,yp,2);
-                       (  vanderdx_2d(xe,ye,2)*diag(nx)
+                       (  vanderdx_2d(xe,ye,2)*diag(nx) ...
 		        + vanderdy_2d(xe,ye,2)*diag(ny) ) 
                      ];
 		C  = inv(A);

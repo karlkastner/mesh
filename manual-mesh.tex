@@ -16,7 +16,7 @@ breaklines=true
 \setlength{\cftsubsecnumwidth}{3.5em}
 
 \title{Manual for Package:
-mesh\protect\\Revision 1:7M
+mesh\protect\\Revision 8M
 }
 \author{Karl K\"astner}
 %\date{}
@@ -164,6 +164,28 @@ ${}$
  export delft3D compatible initial condition file
 
 \end{lstlisting}
+\subsection{export\_delft3d\_inisedthick}
+${}$
+\begin{lstlisting}
+ export initial sediment_thickness file for Delft3D4
+
+\end{lstlisting}
+\subsection{export\_delft3d\_rgh}
+${}$
+\begin{lstlisting}
+ export roughness bathymetry data in Delft3D dep-format
+	if (nargin() > 2)
+	Z = [Z(:,1),Z];
+	Z = [Z,Z(:,1)];
+	Z = [Z(1,:);Z];
+	Z = Z';
+
+\end{lstlisting}
+\subsection{export\_delft3d\_sdb}
+${}$
+\begin{lstlisting}
+
+\end{lstlisting}
 \subsection{export\_shp}
 ${}$
 \begin{lstlisting}
@@ -213,6 +235,11 @@ ${}$
 
  nn: n=6; for idx=1:5; n(end+1)  = 2*(n(end)-3)+3, end
  ns: n=18; for idx=1:5; n(end+1) = 2*(n(end)-2)+2, end (should be improved to 2*(n-1)+1
+
+\end{lstlisting}
+\subsection{generate\_delft3d}
+${}$
+\begin{lstlisting}
 
 \end{lstlisting}
 \subsection{generate\_disk}
@@ -285,7 +312,7 @@ ${}$
 \subsection{orthogonality}
 ${}$
 \begin{lstlisting}
- orthogonality of elements
+ orthogonality of elements, computed at edges
 
 \end{lstlisting}
 \subsection{orthogonalize}
@@ -337,6 +364,21 @@ ${}$
 ${}$
 \begin{lstlisting}
  read mesh in delft3D grd format
+
+\end{lstlisting}
+\subsection{refine}
+${}$
+\begin{lstlisting}
+
+\end{lstlisting}
+\subsection{regenerate}
+${}$
+\begin{lstlisting}
+
+\end{lstlisting}
+\subsection{scale\_channel\_width}
+${}$
+\begin{lstlisting}
 
 \end{lstlisting}
 \subsection{smooth\_cubic}
@@ -1562,6 +1604,11 @@ ${}$
 \begin{lstlisting}
 
 \end{lstlisting}
+\subsection{dxlr2ak}
+${}$
+\begin{lstlisting}
+
+\end{lstlisting}
 \section{grid/@Grid1}
 \subsection{Grid1}
 ${}$
@@ -1869,9 +1916,25 @@ mesh generation, manipulation, analysis, refinement and optimization
 
 
 \end{lstlisting}
+\subsection{plot\_vtk}
+${}$
+\begin{lstlisting}
+
+\end{lstlisting}
 \subsection{preload\_msh}
 ${}$
 \begin{lstlisting}
+
+\end{lstlisting}
+\subsection{read\_vtk}
+${}$
+\begin{lstlisting}
+
+\end{lstlisting}
+\subsection{read\_vtk2}
+${}$
+\begin{lstlisting}
+% read header %%%
 
 \end{lstlisting}
 \section{sparsemesh/@SparseMesh1}
@@ -2004,6 +2067,17 @@ number of samples
 ${}$
 \begin{lstlisting}
  SparseMesh superclass
+
+\end{lstlisting}
+\section{mesh}
+\begin{lstlisting}
+mesh generation, manipulation, analysis, refinement and optimization
+
+
+\end{lstlisting}
+\subsection{stepnumber\_smesh}
+${}$
+\begin{lstlisting}
 
 \end{lstlisting}
 \section{test}

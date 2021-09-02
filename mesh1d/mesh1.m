@@ -1,6 +1,15 @@
 % Fri 15 Dec 11:16:09 CET 2017
-function [x] = mesh1(Xi,nx,xs)
+% function [x] = mesh1(Xi,nx,xs)
+function [x] = mesh1(Xi,nx,xs,dxl,dxr)
 	L = Xi(2)-Xi(1);
+
+	if (nargin()>3)
+		[a,nx] = dxlr2ak(dxl,dxr,L);
+		nx = round(nx);
+		% L/dxl = sum(a^(0:n)) ~ 1/(1-a)
+		% dxr = dxl*a^n
+		
+	end
 
 	% growth of mesh size
 %	a  = log(xs)/(nx-1);
@@ -16,4 +25,5 @@ function [x] = mesh1(Xi,nx,xs)
 %	sumi = id.*(id+1);
 %	X = X(1) + sumi*(L/sumi(end));
 end
+
 

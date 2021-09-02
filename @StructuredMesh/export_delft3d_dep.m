@@ -29,8 +29,13 @@ function obj = export_dep(obj,name,flag)
 		Z = interp1((1:n(2))/(n(2)+1)',Z',(0:n(2))/n(2),'linear','extrap')';
 		Z = interp1((1:n(1))/(n(1)+1),Z,(0:n(1))/n(1),'linear','extrap');
 	case {2}
+		if (0)
 		Z = [Z(:,1),Z,Z(:,end)];	
 		Z = [Z(1,:);Z;Z(end,:)];	
+		else
+			Z = [2*Z(:,1)-Z(:,2),Z,2*Z(:,end)-Z(:,end-1)];	
+			Z = [2*Z(1,:)-Z(2,:);Z;2*Z(end,:)-Z(end-1,:)];	
+		end
 	otherwise
 		% nothing
 	end

@@ -1,6 +1,6 @@
 % Tue  5 Nov 20:05:15 +08 2019
 % TODO move this to Delft3D class
-function d3d = generate_delf3d(mesh, folder_, param, param_silent)
+function d3d = generate_delf3d(mesh, folder_, param, param_silent, write)
 
 	% note that time step in d3d is given in minutes (!)
 	% TODO no magic numbers
@@ -37,19 +37,17 @@ function d3d = generate_delf3d(mesh, folder_, param, param_silent)
 		param.nz = 1;
 	end
 
+	if (isfield(param,'bc'))
 	mesh.bc = param.bc;
+	end
 
 	% model properties
-%	z00 = param.z00;
-%	Q0 = param.Q0;
-%	nn = param.nn;
 
-	mkdir(d3d.folder);
 	d3d.read_all(d3d.templatefolder());
-	if (isfieldorprop(param,'base'))
-		d3d.base = param.base;
+	if (isfieldorprop(param,'runid'))
+		d3d.runid = param.runid;
 	end
-	d3d.mdf.set_filenames(d3d.base);
+	d3d.mdf.set_filenames(d3d.runid);
 	% d3d.tratype = param.tratype;
 	d3d.itdate  = datenum(itdate);
 	d3d.tratype = tratype;
@@ -77,7 +75,7 @@ function d3d = generate_delf3d(mesh, folder_, param, param_silent)
 		param.mdf.Roumet = 'C';
 		rgh = param.Chezy;
 	else
-		error('here')
+		error('Roughness coefficient not defined')
 	end
 
 	% roughness
@@ -87,7 +85,8 @@ function d3d = generate_delf3d(mesh, folder_, param, param_silent)
 		rgh = feval(rgh,mesh.X,mesh.Y);
 	end
 	rgh = inner2outer(inner2outer(rgh,1),2);
-	d3d.mesh.export_delft3d_rgh([d3d.folder,'/',d3d.base,'.rgh'],rgh);
+	d3d.rgh = rgh;
+	%d3d.mesh.export_delft3d_rgh([d3d.folder,'/',d3d.runid,'.rgh'],rgh);
 
 	if (isnumeric(param.zb))
 		zb = repmat(param.zb,size(mesh.X));
@@ -107,21 +106,12 @@ function d3d = generate_delf3d(mesh, folder_, param, param_silent)
 	ini = struct();
 
 	% initial condition
-	if (~isfieldorprop(param,'z0')  || isempty(param.z0))
-		%param.Zeta0          = @(x,y) S0*y;
-		%param.u0             = @(x,y) u0*ones(size(x));
-		ini.Zeta0 = @(x,y) repmat(0,size(x));
-	else
+	if (isfieldorprop(param,'z0'))
 		ini.Zeta0 = param.z0;
-		%ini.Zeta0 = @(x,y) interp1(obj.x,obj.zt(0),y,'linear','extrap')
 	end
-	% TODO move this decision to write ini
-	if (~isfieldorprop(param,'u0') || isempty(param.u0))
-		ini.u0    = @(x,y) repmat(0,size(x));
-	else
+
+	if (isfieldorprop(param,'u0'))
 		ini.u0    = param.u0;
-		%@(x,y) interp1(obj.x,obj.ut(0),y,'linear','extrap');
-		%ini.u0    = @(x,y) interp1(obj.x,obj.ut(0),y,'linear','extrap');
 	end
 
 	d3d.ini = ini;
@@ -157,6 +147,16 @@ function d3d = generate_delf3d(mesh, folder_, param, param_silent)
 	% crashes otherwise
 	%d3d.mdf.mdf.dat.Filsed = '##'
 
+	% TODO, set function
+%	if (isfield(param,'Rettis'))
+%		Rettis = sprintf('            %g\n',param.Rettis);
+%		d3d.mdf.mdf.dat.Rettis = Rettis;
+%	end
+%	if (isfield(param,'Rettib'))
+%	Rettib = sprintf('            %g\n',param.Rettib);
+%		d3d.mdf.mdf.dat.Rettis = Rettib;
+%	end
+
 	% location of downstream boundary
 	bnd = [];
 	bid            = 0;
@@ -168,7 +168,7 @@ function d3d = generate_delf3d(mesh, folder_, param, param_silent)
 	bnd(bid).right = [1,nn(1)];
 	% TODO, make dependend z,q
 	bnd(bid).type  = 'Z';
-	if (param.bndisharmonic)
+	if (param.bndisharmonic(bid))
 		bnd(bid).filetype = 'H';
 	else
 		bnd(bid).filetype = 'T';
@@ -182,7 +182,7 @@ function d3d = generate_delf3d(mesh, folder_, param, param_silent)
 	bnd(bid).left  = [nn(2)+1,2];
 	bnd(bid).right = [nn(2)+1,nn(1)];
 	bnd(bid).type  = 'T';
-	if (param.bndisharmonic)
+	if (param.bndisharmonic(bid))
 		bnd(bid).filetype = 'H';
 	else
 		bnd(bid).filetype = 'T';
@@ -193,56 +193,63 @@ function d3d = generate_delf3d(mesh, folder_, param, param_silent)
 
 	bid = 0;
 	% values at open boundaries
-	% TODO, this does currently fail when left and right boundaries are swapped
-	if (param.bndisharmonic)
+	%if (param.bndisharmonic)
 		%zs0 = param.zs0;
 		%nf  = length(zs0);
 		nf = size(mesh.bc,2);
 		%
 		bch = [];
+		% left boundary
+		if (param.bndisharmonic(1))
 		if (~isfieldorprop(param,'isddb') || ~param.isddb(1))
 			bid = bid+1;
 			% (tidal) frequency components of downstream water level
 			for idx=1:nf
-				bch(bid,idx).omega = (idx-1)*param.omega;
-%				if (idx<2)
+				if (isscalar(param.omega))
+					bch(bid,idx).omega = (idx-1)*param.omega;
+				else
+					bch(bid,idx).omega = param.omega(idx);
+				end
 					% mean level or flow
 				rhs = mesh.bc(bid,idx).rhs;
 				if (isempty(rhs))
 					rhs = 0;
 				end
 				bch(bid,idx).rhs = rhs;
-					%zs0(idx);
-%				else
-%					% frequency components z+z' (note : do not multiply with 2 here)
-%					bch(bid,idx).rhs = zs0(idx);
-%				end
+			end
 			
 			% seasonal component
 			if (   isfieldorprop(mesh,'bc') ...
 			    && size(mesh.bc,1)>0 ...
-			    && isfieldorprop(mesh.bc,'Qseason') )
+			    && isfieldorprop(mesh.bc(bid,1),'Qseason') )
+				% frequency of seasonal variation
 				bch(1,nf+1).omega   = 2*pi/mesh.bc(2,1).Tseason;
 				Q = mesh.bc(bid,1).Qseason;
 				if (isempty(Q))
 					bch(bid,nf+1).rhs   = 0;
 				else
+					% mean flow
 					bch(bid,nf+1).rhs   = mid(Q);
+					% seasonal variation
 					bch(bid,nf+1).rhs   = 0.5*range(mesh.bc(bid,1).Qseason)*exp(1i*mesh.bc(bid,1).phase_season);
 				end
 			end
-			end
 		end % if isddb(1)
+		end % isharmonic
 
+		% right boundary
+		if (param.bndisharmonic(2))
 		if (~isfieldorprop(param,'isddb') || ~param.isddb(2))
 			bid = bid+1;
 	
-			%nf = 2;
-			%bch(1,2).omega = (2-1)*param.omega;
-
 			for idx=1:nf
 				% tidal components
-				bch(1,idx).omega = (idx-1)*param.omega;
+				if (isscalar(param.omega))
+					bch(bid,idx).omega = (idx-1)*param.omega;
+				else
+					bch(bid,idx).omega = param.omega(idx);
+				end
+				% bch(1,idx).omega = (idx-1)*param.omega;
 				%bch(bid,idx).rhs = mesh.bc(bid,idx).rhs;
 				rhs = mesh.bc(bid,idx).rhs;
 				if (isempty(rhs))
@@ -254,19 +261,12 @@ function d3d = generate_delf3d(mesh, folder_, param, param_silent)
 			% upstream discharge with seasonal variation
 			if (isfieldorprop(mesh,'bc') ...
 			    && size(mesh.bc,1)>0 ...
-			    && isfieldorprop(mesh.bc,'Qseason') )
-%			if (~isfieldorprop(mesh,'bc') ...
-%				|| size(mesh.bc,1)<2 ...
-%				|| ~isfieldorprop(mesh.bc(2,1),'Qseason'))
-%				% mean flow
-%				bch(bid,1).rhs     = param.Q0;
-%			else	
-				%idx                = nf+1; % size(mesh.bc,2)+1;
+			    && isfieldorprop(mesh.bc(2,1),'Qseason') )
 				% frequency of seasonal variation
 				bch(1,nf+1).omega   = 2*pi/mesh.bc(2,1).Tseason;
 				% mean flow
 				bch(bid,1).rhs     = mid(mesh.bc(2,1).Qseason);
-				% seasonal variation upstream
+				% seasonal variation
 				bch(bid,nf+1).rhs   = 0.5*range(mesh.bc(bid,1).Qseason)*exp(1i*mesh.bc(bid,1).phase_season);
 			end
 
@@ -275,12 +275,19 @@ function d3d = generate_delf3d(mesh, folder_, param, param_silent)
 %				bch(bid,idx).rhs = 0;
 %			end
 		end % if ~isddb(2)
+		end % bndisharmonic(2)
+	
 		d3d.bch = bch;
-	else % as bct
+%	else % as bct
+
+		bct = struct();
+		bid = 0;
+		% TODO make type element of bc, harmonic or timeseries
+		if (~param.bndisharmonic(1))
+		bid = bid+1;
 		% TODO check isddb
 		% boundary condition
 		if (0)
-		bct = struct();
 		t   = (0:dt_bc:param.mdf.Tstop/1440)';
 		z   = param.zs0*ones(size(t)); % + real(z10*exp(1i*param.omega*t*86400));
 		dx  = Y(1,end)-Y(1,end-1)
@@ -301,22 +308,26 @@ function d3d = generate_delf3d(mesh, folder_, param, param_silent)
 		% "name" is a redundant field
 		% "type" can be determined outomatically
 	
-		% outflow boundary (downstream)
-		bct(1).id       = 1;
-		bct(1).type     = 'Waterlevel';
-		bct(1).location = 'Outflow';
-		bct(1).dt_d     = dt_bc;
-		bct(1).time     = param.bc(1).t;
-		bct(1).val      = param.bc(1).zs;
+			% outflow boundary (downstream)
+			bct(bid).id       = 1;
+			bct(bid).type     = 'Waterlevel';
+			bct(bid).location = 'Outflow';
+			bct(bid).dt_d     = dt_bc;
+			bct(bid).time     = param.bc(1).t;
+			bct(bid).val      = param.bc(1).zs;
+		end
 	
+		if (~param.bndisharmonic(2))
+		bid = bid+1;
 		% inflow boundary (upstream)
-		bct(2).id       = 2;
-		bct(2).type     = 'Discharge';
-		bct(2).location = 'Inflow';
-		bct(2).dt_d     = dt_bc; %1/24;
-		bct(2).time     = param.bc(2).t;
-		bct(2).val      = param.bc(2).Q0;
-
+		bct(bid).id       = 2;
+		bct(bid).type     = 'Discharge';
+		bct(bid).location = 'Inflow';
+		bct(bid).dt_d     = dt_bc; %1/24;
+		bct(bid).time     = param.bc(2).t;
+		bct(bid).val      = param.bc(2).Q0;
+		end
+	
 		%bct(2).time     = t; % ^[0,1/24,param.mdf.Tstop/1440];
 	 			     % Q0*[1e-3,1,1]; 
 		%S0_  = S0;
@@ -326,7 +337,7 @@ function d3d = generate_delf3d(mesh, folder_, param, param_silent)
 		%bct(2).val      = Q0_t;
 	
 		d3d.bct = bct;
-	end
+	% end % of bndisharmonic
 
 	% TODO should go into set_fractions
 %	if (~isfieldorprop(param.sediment,'c0'))
@@ -353,6 +364,10 @@ function d3d = generate_delf3d(mesh, folder_, param, param_silent)
 		T_C = param.T_C;
 	else
 		T_C = NaN;
+	end
+
+	if (~isfield('salinity','param'))
+		param.salinity = [];
 	end
 		
 	d3d.set_fractions(param.sediment ...
@@ -385,14 +400,22 @@ function d3d = generate_delf3d(mesh, folder_, param, param_silent)
 		end
 	end
 
+	if (isfield(param,'MorFac'))
 	d3d.MorFac = param.MorFac;
+	end
+
+	if (nargin()<5  || write)
 
 	d3d.write_all();
 
-	% TODO, move to write_all
+	% TODO, this is redundant to the sed-file and can be extracted from there
 	if (~isempty(param.sediment))
 		hist = Histogram();
-		hist.export_csv([d3d.folder,filesep,'gsd.csv'],[param.sediment.d_mm],[param.sediment.p]);
+		hist.export_csv( [d3d.folder,filesep,'gsd.csv'] ...
+                        	,[param.sediment.d_mm] ...
+				,[param.sediment.p] ...
+				);
+	end
 	end
 end
 

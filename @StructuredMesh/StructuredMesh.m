@@ -53,7 +53,10 @@ classdef StructuredMesh < Mesh
 		smesh = compose_domain(folder,name_C,ddb_str,ds_max);
 	end % methos static
 	methods
-		function obj = StructuredMesh()
+		function obj = StructuredMesh(varargin)
+			for idx=1:2:length(varargin)-1
+				obj.(varargin{idx}) = varargin{idx+1};
+			end
 		end
 
 		% TODO, centroid
